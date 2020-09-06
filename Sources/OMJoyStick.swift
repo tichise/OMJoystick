@@ -47,6 +47,11 @@ enum JoyStickState: String {
 
 struct OMJoystick: View {
     
+    var leftIcon: Image?
+    var rightIcon: Image?
+    var upIcon: Image?
+    var downIcon: Image?
+    
     var isDebug = false
     
     @State var joyStickState: JoyStickState = .center
@@ -157,11 +162,12 @@ struct OMJoystick: View {
                 Divider()
             }
             
-            Image(icon: .expandLess48px, size: iconSize).renderingMode(.template)
+            upIcon?.renderingMode(.template)
             .foregroundColor(.secondary)
 
             HStack() {
-                Image(icon: .rotateLeft48px, size: iconSize).renderingMode(.template)
+                leftIcon?.renderingMode(.template)
+                    
                 .foregroundColor(.secondary)
                 
                 ZStack {
@@ -171,11 +177,11 @@ struct OMJoystick: View {
                     SmallRing(smallRingDiameter: self.smallRingDiameter).offset(x: smallRingLocationX, y: smallRingLocationY)
                 }
 
-                Image(icon: .rotateRight48px, size: iconSize).renderingMode(.template)
+                rightIcon?.renderingMode(.template)
                 .foregroundColor(.secondary)
             }
             
-            Image(icon: .expandMore48px, size: iconSize).renderingMode(.template)
+            downIcon?.renderingMode(.template)
             .foregroundColor(.secondary)
             
             if isDebug {
