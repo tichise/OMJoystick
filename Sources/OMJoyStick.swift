@@ -7,8 +7,6 @@
 //
 
 import SwiftUI
-import MaterialDesignSymbol
-import TILogger
 
 struct SmallRing: View {
     var smallRingDiameter: CGFloat

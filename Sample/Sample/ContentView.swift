@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import OMJoystick
 
 struct ContentView: View {
     var body: some View {
@@ -16,6 +17,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        OMJoystick()
     }
 }
