@@ -3,14 +3,14 @@
 import PackageDescription
 
 let package = Package(
-    name: "OMJoystickView",
+    name: "OMJoystick",
     products: [
-        .library(name: "OMJoystickView", targets: ["OMJoystickView"])
+        .library(name: "OMJoystick", targets: ["OMJoystick"])
     ],
     dependencies: [],
     targets: [
-        .target(name: "OMJoystickView", path: "Sources"),
-        .testTarget(name: "OMJoystickViewTests", dependencies: ["OMJoystickView"]),
+        .target(name: "OMJoystick", path: "Sources"),
+        .testTarget(name: "OMJoystickTests", dependencies: ["OMJoystick"]),
     ],
     swiftLanguageVersions: [.v5]
 )
