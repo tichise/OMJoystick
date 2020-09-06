@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,7 @@
 		B021BC4E2504B57200BFB99E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B021BC4D2504B57200BFB99E /* Preview Assets.xcassets */; };
 		B021BC512504B57200BFB99E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B021BC4F2504B57200BFB99E /* LaunchScreen.storyboard */; };
 		B021BC5C2504B57300BFB99E /* SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B021BC5B2504B57300BFB99E /* SampleTests.swift */; };
+		B021BC6A2504BC9000BFB99E /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = B021BC692504BC9000BFB99E /* SFSafeSymbols */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B021BC6A2504BC9000BFB99E /* SFSafeSymbols in Frameworks */,
 				6F704FCDDC9675E87436CD4D /* Pods_Sample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -149,6 +151,9 @@
 			dependencies = (
 			);
 			name = Sample;
+			packageProductDependencies = (
+				B021BC692504BC9000BFB99E /* SFSafeSymbols */,
+			);
 			productName = Sample;
 			productReference = B021BC412504B56E00BFB99E /* Sample.app */;
 			productType = "com.apple.product-type.application";
@@ -199,6 +204,9 @@
 				Base,
 			);
 			mainGroup = B021BC382504B56E00BFB99E;
+			packageReferences = (
+				B021BC682504BC9000BFB99E /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
+			);
 			productRefGroup = B021BC422504B56E00BFB99E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -362,7 +370,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -416,7 +424,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -545,6 +553,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B021BC682504BC9000BFB99E /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/piknotech/SFSafeSymbols";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B021BC692504BC9000BFB99E /* SFSafeSymbols */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B021BC682504BC9000BFB99E /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
+			productName = SFSafeSymbols;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B021BC392504B56E00BFB99E /* Project object */;
 }
