@@ -20,13 +20,15 @@ struct SmallRing: View {
 struct BigRing: View {
     @Environment(\.colorScheme) var colorScheme
     
+    var bigRingDiameter: CGFloat
+    
     var body: some View {
         ZStack {
             Circle().stroke(Color.primary, lineWidth: 10)
-                .frame(width: 280, height: 280)
+                .frame(width: bigRingDiameter, height: bigRingDiameter)
             
             Circle().fill(colorScheme == .dark ? Color.black : Color.white)
-                .frame(width: 280, height: 280)
+                .frame(width: bigRingDiameter, height: bigRingDiameter)
         }
     }
 }
@@ -63,9 +65,9 @@ public struct OMJoystick: View {
     
     public var completionHandler: ((_ joyStickState: JoyStickState) -> Void)
     
-    var iconSize: CGFloat = 40
+    public var iconSize: CGFloat = 40
     
-    var org = CGPoint(x: 140, y: 140)
+    private var org = CGPoint(x: 140, y: 140)
     
     @State var locationX: CGFloat = 140
     @State var locationY: CGFloat = 140
@@ -185,7 +187,7 @@ public struct OMJoystick: View {
                 
                 ZStack {
                     // 中央は直径280の場合は140:140
-                    BigRing().gesture(dragGesture)
+                    BigRing(bigRingDiameter: bigRingDiameter).gesture(dragGesture)
                     
                     SmallRing(smallRingDiameter: self.smallRingDiameter).offset(x: smallRingLocationX, y: smallRingLocationY)
                 }
