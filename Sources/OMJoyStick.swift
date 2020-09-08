@@ -64,14 +64,11 @@ public struct OMJoystick: View {
     }
     
     public var completionHandler: ((_ joyStickState: JoyStickState) -> Void)
+        
+    private var org: CGPoint = CGPoint(x: 140, y: 140)
     
-    public var iconSize: CGFloat = 40
-    
-    private var org = CGPoint(x: 140, y: 140)
-    
-    @State var locationX: CGFloat = 140
-    @State var locationY: CGFloat = 140
-    
+    @State var locationX: CGFloat = 0
+    @State var locationY: CGFloat = 0
     
     var smallRingDiameter: CGFloat {
         return smallRingRadius*2
@@ -138,8 +135,8 @@ public struct OMJoystick: View {
             self.locationX = self.bigRingDiameter/2
             self.locationY = self.bigRingDiameter/2
             
-            self.locationX = 140
-            self.locationY = 140
+            self.locationX = self.bigRingRadius
+            self.locationY = self.bigRingRadius
             
             self.joyStickState = .center
             
@@ -208,6 +205,9 @@ public struct OMJoystick: View {
                     Text(joyStickState.rawValue).font(.body)
                 }
             }
+        }.onAppear(){
+            self.locationX = self.bigRingRadius
+            self.locationY = self.bigRingRadius
         }.padding(40)
     }
 }
