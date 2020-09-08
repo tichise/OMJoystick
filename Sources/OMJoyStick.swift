@@ -81,9 +81,8 @@ public struct OMJoystick: View {
         return bigRingRadius*2
     }
     
-    let smallRingRadius: CGFloat = 50
-    let bigRingRadius: CGFloat = 140
-    
+    var smallRingRadius: CGFloat
+    var bigRingRadius: CGFloat
     
     var smallRingLocationX: CGFloat {
         return locationX - bigRingRadius
@@ -148,7 +147,7 @@ public struct OMJoystick: View {
         }
     }
     
-    public init(isDebug: Bool = false, leftIcon: Image? = nil, rightIcon: Image? = nil, upIcon: Image? = nil, downIcon: Image? = nil, completionHandler: @escaping ((_ joyStickState: JoyStickState) -> Void)) {
+    public init(isDebug: Bool = false, leftIcon: Image? = nil, rightIcon: Image? = nil, upIcon: Image? = nil, downIcon: Image? = nil, smallRingRadius: CGFloat = 50, bigRingRadius: CGFloat = 140, completionHandler: @escaping ((_ joyStickState: JoyStickState) -> Void)) {
         
         self.isDebug = isDebug
         
@@ -156,6 +155,9 @@ public struct OMJoystick: View {
         self.rightIcon = rightIcon
         self.upIcon = upIcon
         self.downIcon = downIcon
+        
+        self.smallRingRadius = smallRingRadius
+        self.bigRingRadius = bigRingRadius
         
         self.completionHandler = completionHandler
     }
