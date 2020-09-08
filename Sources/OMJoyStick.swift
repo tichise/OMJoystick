@@ -37,7 +37,7 @@ extension CGFloat {
     }
 }
 
-enum JoyStickState: String {
+public enum JoyStickState: String {
     case up
     case down
     case left
@@ -45,7 +45,7 @@ enum JoyStickState: String {
     case center
 }
 
-struct OMJoystick: View {
+public struct OMJoystick: View {
     
     var leftIcon: Image?
     var rightIcon: Image?
@@ -54,13 +54,14 @@ struct OMJoystick: View {
     
     var isDebug = false
     
-    @State var joyStickState: JoyStickState = .center
+    @State private var joyStickState: JoyStickState = .center
         {
         didSet {
             self.completionHandler(self.joyStickState)
         }
     }
-    var completionHandler: ((_ joyStickState: JoyStickState) -> Void)
+    
+    public var completionHandler: ((_ joyStickState: JoyStickState) -> Void)
 
     var iconSize: CGFloat = 40
     
@@ -144,8 +145,22 @@ struct OMJoystick: View {
             self.completionHandler(self.joyStickState)
         }
     }
+    
+    // leftIcon: Image, rightIcon: Image, upIcon: Image, downIcon: Image
+    public init(isDebug: Bool = false, completionHandler: @escaping ((_ joyStickState: JoyStickState) -> Void)) {
+        self.isDebug = isDebug
+        
+        /*
+        self.leftIcon = leftIcon
+        self.rightIcon = rightIcon
+        self.upIcon = upIcon
+        self.downIcon = downIcon
+        */
+        
+        self.completionHandler = completionHandler
+    }
 
-    var body: some View {
+    public var body: some View {
         
         VStack {
             if isDebug {
@@ -197,8 +212,9 @@ struct OMJoystick: View {
 
 struct OMJoystick_Previews: PreviewProvider {
     static var previews: some View {
-        OMJoystick(isDebug: true, completionHandler: { (joyStickState) in
-            print(joyStickState.rawValue)
-        })
+        
+        // leftIcon: nil, rightIcon: nil, upIcon: nil, downIcon: nil
+        OMJoystick(isDebug: true) { (joyStickState) in
+        }
     }
 }
