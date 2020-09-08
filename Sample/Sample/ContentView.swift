@@ -8,10 +8,23 @@
 
 import SwiftUI
 import OMJoystick
+import SFSafeSymbols
+import TILogger
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, World!")
+        GeometryReader { geometry in
+            VStack(alignment: .center, spacing: 5) {
+                OMJoystick() { (joyStickState) in
+                    TILogger().info(joyStickState.rawValue)
+                }.frame(width: geometry.size.width-40, height: geometry.size.width-40)
+                
+                OMJoystick(isDebug: true, leftIcon: Image(systemSymbol: .rotateLeft)) { (joyStickState) in
+                    TILogger().info(joyStickState.rawValue)
+
+                }.frame(width: geometry.size.width-40, height: geometry.size.width-40)
+            }
+        }
     }
 }
 
