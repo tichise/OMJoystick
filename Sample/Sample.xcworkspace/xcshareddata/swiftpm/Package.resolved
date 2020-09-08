@@ -9,6 +9,15 @@
           "revision": "31a99db357f2b839a18ab598c4aa87a741bd6009",
           "version": "1.2.0"
         }
+      },
+      {
+        "package": "TILogger",
+        "repositoryURL": "https://github.com/tichise/TILogger",
+        "state": {
+          "branch": null,
+          "revision": "f6671090fc7fc0937ed6e5b39867c3e8349f38eb",
+          "version": "1.2.0"
+        }
       }
     ]
   },

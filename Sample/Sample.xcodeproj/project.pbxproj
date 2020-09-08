@@ -16,6 +16,7 @@
 		B021BC512504B57200BFB99E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B021BC4F2504B57200BFB99E /* LaunchScreen.storyboard */; };
 		B021BC5C2504B57300BFB99E /* SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B021BC5B2504B57300BFB99E /* SampleTests.swift */; };
 		B021BC6A2504BC9000BFB99E /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = B021BC692504BC9000BFB99E /* SFSafeSymbols */; };
+		B02B47E92507BEC700031602 /* TILogger in Frameworks */ = {isa = PBXBuildFile; productRef = B02B47E82507BEC700031602 /* TILogger */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B021BC6A2504BC9000BFB99E /* SFSafeSymbols in Frameworks */,
+				B02B47E92507BEC700031602 /* TILogger in Frameworks */,
 				6F704FCDDC9675E87436CD4D /* Pods_Sample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -153,6 +155,7 @@
 			name = Sample;
 			packageProductDependencies = (
 				B021BC692504BC9000BFB99E /* SFSafeSymbols */,
+				B02B47E82507BEC700031602 /* TILogger */,
 			);
 			productName = Sample;
 			productReference = B021BC412504B56E00BFB99E /* Sample.app */;
@@ -206,6 +209,7 @@
 			mainGroup = B021BC382504B56E00BFB99E;
 			packageReferences = (
 				B021BC682504BC9000BFB99E /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
+				B02B47E72507BEC700031602 /* XCRemoteSwiftPackageReference "TILogger" */,
 			);
 			productRefGroup = B021BC422504B56E00BFB99E /* Products */;
 			projectDirPath = "";
@@ -563,6 +567,14 @@
 				minimumVersion = 1.2.0;
 			};
 		};
+		B02B47E72507BEC700031602 /* XCRemoteSwiftPackageReference "TILogger" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tichise/TILogger";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -570,6 +582,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B021BC682504BC9000BFB99E /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
 			productName = SFSafeSymbols;
+		};
+		B02B47E82507BEC700031602 /* TILogger */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B02B47E72507BEC700031602 /* XCRemoteSwiftPackageReference "TILogger" */;
+			productName = TILogger;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
