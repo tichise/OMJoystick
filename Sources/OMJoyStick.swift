@@ -68,7 +68,7 @@ public struct OMJoystick: View {
     
     var stickPosition: CGPoint {
         let stickPositionX = locationX - bigRingRadius
-        let stickPositionY = locationY - bigRingRadius
+        let stickPositionY = -1 * (locationY - bigRingRadius)
         
         return CGPoint(x: stickPositionX, y: stickPositionY)
     }
@@ -190,10 +190,10 @@ public struct OMJoystick: View {
             if isDebug {
                 VStack {
                     HStack(spacing: 15) {
-                        Text(locationX.text()).font(.body)
+                        Text(stickPosition.x.text()).font(.body)
                         Text(":").font(.body)
                         
-                        Text(locationY.text()).font(.body)
+                        Text(stickPosition.y.text()).font(.body)
                     }
                     
                 }.padding(10)
@@ -242,7 +242,11 @@ public struct OMJoystick: View {
 
 struct OMJoystick_Previews: PreviewProvider {
     static var previews: some View {
-        OMJoystick(isDebug: true) { (joyStickState, stickPosition)  in
+        GeometryReader { geometry in
+            VStack(alignment: .center, spacing: 5) {
+                OMJoystick() { (joyStickState, stickPosition) in
+                }
+            }.background(Color.white)
         }
     }
 }
