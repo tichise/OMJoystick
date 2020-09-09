@@ -10,9 +10,10 @@ import SwiftUI
 
 struct SmallRing: View {
     var smallRingDiameter: CGFloat
+    var subRingColor: Color
     
     var body: some View {
-        Circle().fill(Color.primary)
+        Circle().fill(subRingColor)
             .frame(width: smallRingDiameter, height: smallRingDiameter)
     }
 }
@@ -20,14 +21,18 @@ struct SmallRing: View {
 struct BigRing: View {
     @Environment(\.colorScheme) var colorScheme
     
+    var bigRingNormalBackgroundColor: Color
+    var bigRingDarkBackgroundColor: Color
+    var bigRingStrokeColor: Color
+    
     var bigRingDiameter: CGFloat
     
     var body: some View {
         ZStack {
-            Circle().stroke(Color.primary, lineWidth: 10)
+            Circle().stroke(bigRingStrokeColor, lineWidth: 10)
                 .frame(width: bigRingDiameter, height: bigRingDiameter)
             
-            Circle().fill(colorScheme == .dark ? Color.black : Color.white)
+            Circle().fill(colorScheme == .dark ? bigRingDarkBackgroundColor : bigRingNormalBackgroundColor)
                 .frame(width: bigRingDiameter, height: bigRingDiameter)
         }
     }
@@ -49,6 +54,11 @@ public enum JoyStickState: String {
 
 public struct OMJoystick: View {
     
+    public var subRingColor: Color = .primary
+    public var bigRingNormalBackgroundColor: Color = .white
+    public var bigRingDarkBackgroundColor: Color = .black
+    public var bigRingStrokeColor: Color = Color.primary
+
     var leftIcon: Image?
     var rightIcon: Image?
     var upIcon: Image?
@@ -188,9 +198,12 @@ public struct OMJoystick: View {
                 
                 ZStack {
                     // 中央は直径280の場合は140:140
-                    BigRing(bigRingDiameter: bigRingDiameter).gesture(dragGesture)
+                    BigRing(
+                        bigRingNormalBackgroundColor: bigRingNormalBackgroundColor,  bigRingDarkBackgroundColor: bigRingDarkBackgroundColor, 
+                        bigRingStrokeColor: bigRingStrokeColor,
+                        bigRingDiameter: bigRingDiameter).gesture(dragGesture)
                     
-                    SmallRing(smallRingDiameter: self.smallRingDiameter).offset(x: smallRingLocationX, y: smallRingLocationY)
+                    SmallRing(smallRingDiameter: self.smallRingDiameter, subRingColor: subRingColor).offset(x: smallRingLocationX, y: smallRingLocationY)
                 }
                 
                 rightIcon?.renderingMode(.template)

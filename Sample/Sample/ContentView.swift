@@ -21,11 +21,12 @@ struct ContentView: View {
                     TILogger().info(joyStickState.rawValue)
                 }.frame(width: geometry.size.width-40, height: geometry.size.width-40)
                 
-                OMJoystick(isDebug: true, leftIcon: Image(systemSymbol: .rotateLeft), smallRingRadius: 70, bigRingRadius: 120) { (joyStickState) in
+                OMJoystick(isDebug: true, leftIcon: Image(systemSymbol: .rotateLeft), smallRingRadius: 70, bigRingRadius: 120
+                ) { (joyStickState) in
                     TILogger().info(joyStickState.rawValue)
 
                 }.frame(width: geometry.size.width-40, height: geometry.size.width-40)
-            }
+            }.background(Color.red)
         }
     }
 }
