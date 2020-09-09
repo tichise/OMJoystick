@@ -29,7 +29,7 @@ struct ContentView: View {
                     TILogger().info(stickPosition)
 
                 }.frame(width: geometry.size.width-40, height: geometry.size.width-40)
-            }.background(Color.white)
+            }
         }
     }
 }
@@ -39,3 +39,10 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+struct ContentView_Previews2: PreviewProvider {
+    static var previews: some View {
+        ContentView().environment(\.colorScheme, .dark)
+    }
+}
+
