@@ -54,10 +54,10 @@ public enum JoyStickState: String {
 
 public struct OMJoystick: View {
     
-    public var subRingColor: Color = .primary
-    public var bigRingNormalBackgroundColor: Color = .white
-    public var bigRingDarkBackgroundColor: Color = .black
-    public var bigRingStrokeColor: Color = Color.primary
+    var subRingColor: Color
+    var bigRingNormalBackgroundColor: Color
+    var bigRingDarkBackgroundColor: Color
+    var bigRingStrokeColor: Color
 
     var leftIcon: Image?
     var rightIcon: Image?
@@ -156,9 +156,20 @@ public struct OMJoystick: View {
         }
     }
     
-    public init(isDebug: Bool = false, leftIcon: Image? = nil, rightIcon: Image? = nil, upIcon: Image? = nil, downIcon: Image? = nil, smallRingRadius: CGFloat = 50, bigRingRadius: CGFloat = 140, completionHandler: @escaping ((_ joyStickState: JoyStickState) -> Void)) {
+    public init(isDebug: Bool = false, leftIcon: Image? = nil, rightIcon: Image? = nil, upIcon: Image? = nil, downIcon: Image? = nil, smallRingRadius: CGFloat = 50, bigRingRadius: CGFloat = 140,
+                
+        subRingColor: Color = .primary,
+        bigRingNormalBackgroundColor: Color = .white,
+        bigRingDarkBackgroundColor: Color = .black,
+        bigRingStrokeColor: Color = Color.primary,
+        completionHandler: @escaping ((_ joyStickState: JoyStickState) -> Void)) {
         
         self.isDebug = isDebug
+        
+        self.subRingColor = subRingColor
+        self.bigRingNormalBackgroundColor = bigRingNormalBackgroundColor
+        self.bigRingDarkBackgroundColor = bigRingDarkBackgroundColor
+        self.bigRingStrokeColor = bigRingStrokeColor
         
         self.leftIcon = leftIcon
         self.rightIcon = rightIcon

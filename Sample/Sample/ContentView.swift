@@ -26,7 +26,7 @@ struct ContentView: View {
                     TILogger().info(joyStickState.rawValue)
 
                 }.frame(width: geometry.size.width-40, height: geometry.size.width-40)
-            }.background(Color.red)
+            }.background(Color.white)
         }
     }
 }
