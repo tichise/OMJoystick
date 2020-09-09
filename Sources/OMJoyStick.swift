@@ -68,7 +68,8 @@ public struct OMJoystick: View {
     
     var stickPosition: CGPoint {
         let stickPositionX = locationX - bigRingRadius
-        let stickPositionY = -1 * (locationY - bigRingRadius)
+        
+        let stickPositionY = (locationY - bigRingRadius) < 0 ? -1 * (locationY - bigRingRadius) : locationY - bigRingRadius
         
         return CGPoint(x: stickPositionX, y: stickPositionY)
     }
