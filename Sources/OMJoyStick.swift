@@ -66,14 +66,16 @@ public struct OMJoystick: View {
     
     var isDebug = false
     
-    @State private var joyStickState: JoyStickState = .center
-        {
-        didSet {
-            self.completionHandler(self.joyStickState)
-        }
+    var stickPosition: CGPoint {
+        let stickPositionX = locationX - bigRingRadius
+        let stickPositionY = locationY - bigRingRadius
+        
+        return CGPoint(x: stickPositionX, y: stickPositionY)
     }
     
-    public var completionHandler: ((_ joyStickState: JoyStickState) -> Void)
+    @State private var joyStickState: JoyStickState = .center
+    
+    public var completionHandler: ((_ joyStickState: JoyStickState, _ stickPosition: CGPoint) -> Void)
         
     var org: CGPoint {
         return CGPoint(x: self.bigRingRadius, y: self.bigRingRadius)
@@ -152,7 +154,7 @@ public struct OMJoystick: View {
             
             self.joyStickState = .center
             
-            self.completionHandler(self.joyStickState)
+            self.completionHandler(self.joyStickState,  self.stickPosition)
         }
     }
     
@@ -162,7 +164,7 @@ public struct OMJoystick: View {
         bigRingNormalBackgroundColor: Color = .white,
         bigRingDarkBackgroundColor: Color = .black,
         bigRingStrokeColor: Color = Color.primary,
-        completionHandler: @escaping ((_ joyStickState: JoyStickState) -> Void)) {
+        completionHandler: @escaping ((_ joyStickState: JoyStickState, _ stickPosition: CGPoint) -> Void)) {
         
         self.isDebug = isDebug
         
@@ -240,7 +242,7 @@ public struct OMJoystick: View {
 
 struct OMJoystick_Previews: PreviewProvider {
     static var previews: some View {
-        OMJoystick(isDebug: true) { (joyStickState) in
+        OMJoystick(isDebug: true) { (joyStickState, stickPosition)  in
         }
     }
 }

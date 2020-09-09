@@ -17,13 +17,16 @@ struct ContentView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack(alignment: .center, spacing: 5) {
-                OMJoystick() { (joyStickState) in
+                OMJoystick() { (joyStickState, stickPosition) in
                     TILogger().info(joyStickState.rawValue)
+                    TILogger().info(stickPosition)
+
                 }.frame(width: geometry.size.width-40, height: geometry.size.width-40)
                 
                 OMJoystick(isDebug: true, leftIcon: Image(systemSymbol: .rotateLeft), smallRingRadius: 70, bigRingRadius: 120
-                ) { (joyStickState) in
+                ) { (joyStickState, stickPosition)  in
                     TILogger().info(joyStickState.rawValue)
+                    TILogger().info(stickPosition)
 
                 }.frame(width: geometry.size.width-40, height: geometry.size.width-40)
             }.background(Color.white)
