@@ -65,7 +65,9 @@ public struct OMJoystick: View {
     
     public var completionHandler: ((_ joyStickState: JoyStickState) -> Void)
         
-    private var org: CGPoint = CGPoint(x: 140, y: 140)
+    var org: CGPoint {
+        return CGPoint(x: self.bigRingRadius, y: self.bigRingRadius)
+    }
     
     @State var locationX: CGFloat = 0
     @State var locationY: CGFloat = 0
