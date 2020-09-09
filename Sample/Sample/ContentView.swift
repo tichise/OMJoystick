@@ -42,7 +42,7 @@ struct ContentView_Previews: PreviewProvider {
 
 struct ContentView_Previews2: PreviewProvider {
     static var previews: some View {
-        ContentView().environment(\.colorScheme, .dark)
+        ContentView().background(Color.black).environment(\.colorScheme, .dark)
     }
 }
 
