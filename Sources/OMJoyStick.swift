@@ -117,6 +117,8 @@ public struct OMJoystick: View {
     @State var locationX: CGFloat = 0
     @State var locationY: CGFloat = 0
     
+    let iconPadding: CGFloat = 10
+    
     var smallRingDiameter: CGFloat {
         return smallRingRadius*2
     }
@@ -231,12 +233,11 @@ public struct OMJoystick: View {
             }
             
             upIcon?.renderingMode(.template)
-                .foregroundColor(.secondary)
+                .foregroundColor(.secondary).padding(iconPadding)
             
             HStack() {
                 leftIcon?.renderingMode(.template)
-                    
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.secondary).padding(iconPadding)
                 
                 ZStack {
                     // 中央は直径280の場合は140:140
@@ -249,11 +250,11 @@ public struct OMJoystick: View {
                 }
                 
                 rightIcon?.renderingMode(.template)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.secondary).padding(iconPadding)
             }
             
             downIcon?.renderingMode(.template)
-                .foregroundColor(.secondary)
+                .foregroundColor(.secondary).padding(iconPadding)
             
             if isDebug {                
                 HStack(spacing: 15) {
