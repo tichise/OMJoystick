@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6F704FCDDC9675E87436CD4D /* Pods_Sample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23761F6123AB5675A456F5FC /* Pods_Sample.framework */; };
 		B021BC452504B56E00BFB99E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B021BC442504B56E00BFB99E /* AppDelegate.swift */; };
 		B021BC472504B56E00BFB99E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B021BC462504B56E00BFB99E /* SceneDelegate.swift */; };
 		B021BC492504B56E00BFB99E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B021BC482504B56E00BFB99E /* ContentView.swift */; };
@@ -14,6 +15,8 @@
 		B021BC4E2504B57200BFB99E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B021BC4D2504B57200BFB99E /* Preview Assets.xcassets */; };
 		B021BC512504B57200BFB99E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B021BC4F2504B57200BFB99E /* LaunchScreen.storyboard */; };
 		B021BC5C2504B57300BFB99E /* SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B021BC5B2504B57300BFB99E /* SampleTests.swift */; };
+		B021BC6A2504BC9000BFB99E /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = B021BC692504BC9000BFB99E /* SFSafeSymbols */; };
+		B02B47E92507BEC700031602 /* TILogger in Frameworks */ = {isa = PBXBuildFile; productRef = B02B47E82507BEC700031602 /* TILogger */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +30,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E4C4370AFA6BE790408DCE5 /* Pods-Sample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sample.release.xcconfig"; path = "Target Support Files/Pods-Sample/Pods-Sample.release.xcconfig"; sourceTree = "<group>"; };
+		23761F6123AB5675A456F5FC /* Pods_Sample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D3BB912A07587F37C394E83 /* Pods-Sample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sample.debug.xcconfig"; path = "Target Support Files/Pods-Sample/Pods-Sample.debug.xcconfig"; sourceTree = "<group>"; };
 		B021BC412504B56E00BFB99E /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B021BC442504B56E00BFB99E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B021BC462504B56E00BFB99E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +51,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B021BC6A2504BC9000BFB99E /* SFSafeSymbols in Frameworks */,
+				B02B47E92507BEC700031602 /* TILogger in Frameworks */,
+				6F704FCDDC9675E87436CD4D /* Pods_Sample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,12 +67,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		70B8854C788F8246968924CF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				23761F6123AB5675A456F5FC /* Pods_Sample.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8549D99DE5899F21F591AE39 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4D3BB912A07587F37C394E83 /* Pods-Sample.debug.xcconfig */,
+				0E4C4370AFA6BE790408DCE5 /* Pods-Sample.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		B021BC382504B56E00BFB99E = {
 			isa = PBXGroup;
 			children = (
 				B021BC432504B56E00BFB99E /* Sample */,
 				B021BC5A2504B57300BFB99E /* SampleTests */,
 				B021BC422504B56E00BFB99E /* Products */,
+				8549D99DE5899F21F591AE39 /* Pods */,
+				70B8854C788F8246968924CF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -114,15 +142,21 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B021BC602504B57300BFB99E /* Build configuration list for PBXNativeTarget "Sample" */;
 			buildPhases = (
+				C8F17D4206A003F561C820BA /* [CP] Check Pods Manifest.lock */,
 				B021BC3D2504B56E00BFB99E /* Sources */,
 				B021BC3E2504B56E00BFB99E /* Frameworks */,
 				B021BC3F2504B56E00BFB99E /* Resources */,
+				DD4C517B273493B25E8E8037 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Sample;
+			packageProductDependencies = (
+				B021BC692504BC9000BFB99E /* SFSafeSymbols */,
+				B02B47E82507BEC700031602 /* TILogger */,
+			);
 			productName = Sample;
 			productReference = B021BC412504B56E00BFB99E /* Sample.app */;
 			productType = "com.apple.product-type.application";
@@ -173,6 +207,10 @@
 				Base,
 			);
 			mainGroup = B021BC382504B56E00BFB99E;
+			packageReferences = (
+				B021BC682504BC9000BFB99E /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
+				B02B47E72507BEC700031602 /* XCRemoteSwiftPackageReference "TILogger" */,
+			);
 			productRefGroup = B021BC422504B56E00BFB99E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -202,6 +240,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C8F17D4206A003F561C820BA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Sample-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DD4C517B273493B25E8E8037 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sample/Pods-Sample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sample/Pods-Sample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sample/Pods-Sample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B021BC3D2504B56E00BFB99E /* Sources */ = {
@@ -294,7 +374,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -348,7 +428,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -360,6 +440,7 @@
 		};
 		B021BC612504B57300BFB99E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4D3BB912A07587F37C394E83 /* Pods-Sample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -367,6 +448,7 @@
 				DEVELOPMENT_TEAM = WBZ98LPU7V;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Sample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -380,6 +462,7 @@
 		};
 		B021BC622504B57300BFB99E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0E4C4370AFA6BE790408DCE5 /* Pods-Sample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -387,6 +470,7 @@
 				DEVELOPMENT_TEAM = WBZ98LPU7V;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Sample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -473,6 +557,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B021BC682504BC9000BFB99E /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/piknotech/SFSafeSymbols";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
+		B02B47E72507BEC700031602 /* XCRemoteSwiftPackageReference "TILogger" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tichise/TILogger";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B021BC692504BC9000BFB99E /* SFSafeSymbols */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B021BC682504BC9000BFB99E /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
+			productName = SFSafeSymbols;
+		};
+		B02B47E82507BEC700031602 /* TILogger */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B02B47E72507BEC700031602 /* XCRemoteSwiftPackageReference "TILogger" */;
+			productName = TILogger;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B021BC392504B56E00BFB99E /* Project object */;
 }

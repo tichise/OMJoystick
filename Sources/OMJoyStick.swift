@@ -7,28 +7,33 @@
 //
 
 import SwiftUI
-import MaterialDesignSymbol
-import TILogger
 
 struct SmallRing: View {
     var smallRingDiameter: CGFloat
+    var subRingColor: Color
     
     var body: some View {
-        Circle().fill(Color.primary)
-                           .frame(width: smallRingDiameter, height: smallRingDiameter)
+        Circle().fill(subRingColor)
+            .frame(width: smallRingDiameter, height: smallRingDiameter)
     }
 }
 
 struct BigRing: View {
     @Environment(\.colorScheme) var colorScheme
-
+    
+    var bigRingNormalBackgroundColor: Color
+    var bigRingDarkBackgroundColor: Color
+    var bigRingStrokeColor: Color
+    
+    var bigRingDiameter: CGFloat
+    
     var body: some View {
         ZStack {
-            Circle().stroke(Color.primary, lineWidth: 10)
-            .frame(width: 280, height: 280)
+            Circle().stroke(bigRingStrokeColor, lineWidth: 10)
+                .frame(width: bigRingDiameter, height: bigRingDiameter)
             
-            Circle().fill(colorScheme == .dark ? Color.black : Color.white)
-            .frame(width: 280, height: 280)
+            Circle().fill(colorScheme == .dark ? bigRingDarkBackgroundColor : bigRingNormalBackgroundColor)
+                .frame(width: bigRingDiameter, height: bigRingDiameter)
         }
     }
 }
@@ -39,7 +44,7 @@ extension CGFloat {
     }
 }
 
-enum JoyStickState: String {
+public enum JoyStickState: String {
     case up
     case down
     case left
@@ -47,25 +52,72 @@ enum JoyStickState: String {
     case center
 }
 
-struct OMJoystick: View {
+public struct IconSetting {
+    var leftIcon: Image
+    var rightIcon: Image
+    var upIcon: Image
+    var downIcon: Image
+    
+    public init(leftIcon: Image, rightIcon: Image, upIcon: Image, downIcon: Image) {
+        self.leftIcon = leftIcon
+        self.rightIcon = rightIcon
+        self.upIcon = upIcon
+        self.downIcon = downIcon
+    }
+}
+
+public struct ColorSetting {
+    var subRingColor: Color
+    var bigRingNormalBackgroundColor: Color
+    var bigRingDarkBackgroundColor: Color
+    var bigRingStrokeColor: Color
+    
+    public init(subRingColor: Color = .primary,
+    bigRingNormalBackgroundColor: Color = .white,
+    bigRingDarkBackgroundColor: Color = .black,
+    bigRingStrokeColor: Color = Color.primary) {
+        
+        self.subRingColor = subRingColor
+        self.bigRingNormalBackgroundColor = bigRingNormalBackgroundColor
+        self.bigRingDarkBackgroundColor = bigRingDarkBackgroundColor
+        self.bigRingStrokeColor = bigRingStrokeColor
+    }
+}
+
+public struct OMJoystick: View {
+    
+    var subRingColor: Color
+    var bigRingNormalBackgroundColor: Color
+    var bigRingDarkBackgroundColor: Color
+    var bigRingStrokeColor: Color
+
+    var leftIcon: Image?
+    var rightIcon: Image?
+    var upIcon: Image?
+    var downIcon: Image?
     
     var isDebug = false
     
-    @State var joyStickState: JoyStickState = .center
-        {
-        didSet {
-            self.completionHandler(self.joyStickState)
-        }
+    var stickPosition: CGPoint {
+        let stickPositionX = floor(locationX - bigRingRadius)
+        
+        let stickPositionY = floor((locationY - bigRingRadius) < 0 ? -1 * (locationY - bigRingRadius) : locationY - bigRingRadius)
+                
+        return CGPoint(x: stickPositionX, y: stickPositionY)
     }
-    var completionHandler: ((_ joyStickState: JoyStickState) -> Void)
-
-    var iconSize: CGFloat = 40
     
-    var org = CGPoint(x: 140, y: 140)
+    @State private var joyStickState: JoyStickState = .center
     
-    @State var locationX: CGFloat = 140
-    @State var locationY: CGFloat = 140
+    public var completionHandler: ((_ joyStickState: JoyStickState, _ stickPosition: CGPoint) -> Void)
+        
+    var org: CGPoint {
+        return CGPoint(x: self.bigRingRadius, y: self.bigRingRadius)
+    }
     
+    @State var locationX: CGFloat = 0
+    @State var locationY: CGFloat = 0
+    
+    let iconPadding: CGFloat = 10
     
     var smallRingDiameter: CGFloat {
         return smallRingRadius*2
@@ -75,9 +127,8 @@ struct OMJoystick: View {
         return bigRingRadius*2
     }
     
-    let smallRingRadius: CGFloat = 50
-    let bigRingRadius: CGFloat = 140
-
+    var smallRingRadius: CGFloat
+    var bigRingRadius: CGFloat
     
     var smallRingLocationX: CGFloat {
         return locationX - bigRingRadius
@@ -105,96 +156,115 @@ struct OMJoystick: View {
     var dragGesture: some Gesture {
         // minimumDistanceが1以上だとタッチイベントを一切拾わない
         DragGesture(minimumDistance: 0)
-        .onChanged{ value in
-            let distance = self.org.distanceToPoint(otherPoint: value.location)
-            
-            let smallRingLimitCenter: CGFloat = self.bigRingRadius - self.smallRingRadius
-            
-            if (distance <= smallRingLimitCenter) {
-                // 円の範囲内
-                self.locationX = value.location.x
-                self.locationY = value.location.y
+            .onChanged{ value in
+                let distance = self.org.distanceToPoint(otherPoint: value.location)
                 
-
-            } else {
-                // 円の範囲外の場合は
-                let angle = self.org.angleToPoint(pointOnCircle: value.location)
-
-                let pointOnCircle = self.org.pointOnCircle(radius: smallRingLimitCenter, angle: angle)
+                let smallRingLimitCenter: CGFloat = self.bigRingRadius - self.smallRingRadius
                 
-                self.locationX = pointOnCircle.x
-                self.locationY = pointOnCircle.y
-            }
-            
-            self.joyStickState = self.getJoyStickState()
-
+                if (distance <= smallRingLimitCenter) {
+                    // 円の範囲内
+                    self.locationX = value.location.x
+                    self.locationY = value.location.y
+                    
+                    
+                } else {
+                    // 円の範囲外の場合は
+                    let angle = self.org.angleToPoint(pointOnCircle: value.location)
+                    
+                    let pointOnCircle = self.org.pointOnCircle(radius: smallRingLimitCenter, angle: angle)
+                    
+                    self.locationX = pointOnCircle.x
+                    self.locationY = pointOnCircle.y
+                }
+                
+                self.joyStickState = self.getJoyStickState()
+                
+                self.completionHandler(self.joyStickState,  self.stickPosition)
         }
         .onEnded{ value in
             self.locationX = self.bigRingDiameter/2
             self.locationY = self.bigRingDiameter/2
             
-            self.locationX = 140
-            self.locationY = 140
+            self.locationX = self.bigRingRadius
+            self.locationY = self.bigRingRadius
             
             self.joyStickState = .center
             
-            self.completionHandler(self.joyStickState)
+            self.completionHandler(self.joyStickState,  self.stickPosition)
         }
     }
-
-    var body: some View {
+    
+    
+    public init(isDebug: Bool = false, iconSetting: IconSetting? = nil, colorSetting: ColorSetting, smallRingRadius: CGFloat = 50, bigRingRadius: CGFloat = 140,
+        completionHandler: @escaping ((_ joyStickState: JoyStickState, _ stickPosition: CGPoint) -> Void)) {
+        
+        self.isDebug = isDebug
+        
+        self.subRingColor = colorSetting.subRingColor
+        self.bigRingNormalBackgroundColor = colorSetting.bigRingNormalBackgroundColor
+        self.bigRingDarkBackgroundColor = colorSetting.bigRingDarkBackgroundColor
+        self.bigRingStrokeColor = colorSetting.bigRingStrokeColor
+        
+        if let iconSetting = iconSetting {
+            self.leftIcon = iconSetting.leftIcon
+            self.rightIcon = iconSetting.rightIcon
+            self.upIcon = iconSetting.upIcon
+            self.downIcon = iconSetting.downIcon
+        }
+        
+        self.smallRingRadius = smallRingRadius
+        self.bigRingRadius = bigRingRadius
+        
+        self.completionHandler = completionHandler
+    }
+    
+    public var body: some View {
         
         VStack {
             if isDebug {
                 VStack {
                     HStack(spacing: 15) {
-                        Text(locationX.text()).font(.body)
+                        Text(stickPosition.x.text()).font(.body)
                         Text(":").font(.body)
-
-                        Text(locationY.text()).font(.body)
+                        
+                        Text(stickPosition.y.text()).font(.body)
                     }
- 
+                    
                 }.padding(10)
-                
-                Divider()
             }
             
-            Image(icon: .expandLess48px, size: iconSize).renderingMode(.template)
-            .foregroundColor(.secondary)
-
+            upIcon?.renderingMode(.template)
+                .foregroundColor(.secondary).padding(iconPadding)
+            
             HStack() {
-                Image(icon: .rotateLeft48px, size: iconSize).renderingMode(.template)
-                .foregroundColor(.secondary)
+                leftIcon?.renderingMode(.template)
+                    .foregroundColor(.secondary).padding(iconPadding)
                 
                 ZStack {
-                     // 中央は直径280の場合は140:140
-                    BigRing().gesture(dragGesture)
+                    // 中央は直径280の場合は140:140
+                    BigRing(
+                        bigRingNormalBackgroundColor: bigRingNormalBackgroundColor,  bigRingDarkBackgroundColor: bigRingDarkBackgroundColor, 
+                        bigRingStrokeColor: bigRingStrokeColor,
+                        bigRingDiameter: bigRingDiameter).gesture(dragGesture)
                     
-                    SmallRing(smallRingDiameter: self.smallRingDiameter).offset(x: smallRingLocationX, y: smallRingLocationY)
+                    SmallRing(smallRingDiameter: self.smallRingDiameter, subRingColor: subRingColor).offset(x: smallRingLocationX, y: smallRingLocationY)
                 }
-
-                Image(icon: .rotateRight48px, size: iconSize).renderingMode(.template)
-                .foregroundColor(.secondary)
+                
+                rightIcon?.renderingMode(.template)
+                    .foregroundColor(.secondary).padding(iconPadding)
             }
             
-            Image(icon: .expandMore48px, size: iconSize).renderingMode(.template)
-            .foregroundColor(.secondary)
+            downIcon?.renderingMode(.template)
+                .foregroundColor(.secondary).padding(iconPadding)
             
-            if isDebug {
-                Divider()
-                
+            if isDebug {                
                 HStack(spacing: 15) {
                     Text(joyStickState.rawValue).font(.body)
                 }
             }
+        }.onAppear(){
+            self.locationX = self.bigRingRadius
+            self.locationY = self.bigRingRadius
         }.padding(40)
-    }
-}
-
-struct OMJoystick_Previews: PreviewProvider {
-    static var previews: some View {
-        OMJoystick(isDebug: true, completionHandler: { (joyStickState) in
-            print(joyStickState.rawValue)
-        })
     }
 }
