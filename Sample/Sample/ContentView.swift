@@ -15,10 +15,10 @@ struct ContentView: View {
     let iconSize: CGFloat = 40
         
     let iconSetting = IconSetting(
-        leftIcon: Image(systemSymbol: .rotateLeft),
-        rightIcon: Image(systemSymbol: .rotateLeft),
-        upIcon: Image(systemSymbol:.rotateLeft),
-        downIcon: Image(systemSymbol: .rotateLeft)
+        leftIcon: Image(systemSymbol: .arrowLeft),
+        rightIcon: Image(systemSymbol: .arrowRight),
+        upIcon: Image(systemSymbol:.arrowUp),
+        downIcon: Image(systemSymbol: .arrowDown)
     )
     
     let colorSetting = ColorSetting(subRingColor: .red, bigRingNormalBackgroundColor: .green, bigRingDarkBackgroundColor: .blue, bigRingStrokeColor: .yellow)
