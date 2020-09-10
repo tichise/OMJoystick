@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'OMJoystick'
-  s.version = '0.5.2'
+  s.version = '0.5.3'
   s.swift_versions = '5.0'
   s.license = 'MIT'
   s.summary = 'This is the Joystick UI library for SwiftUI.'
@@ -9,8 +9,7 @@ Pod::Spec.new do |s|
   s.author = "Takuya Ichise"
   s.source = { :git => 'https://github.com/tichise/OMJoystick.git', :tag => s.version }
 
-  s.ios.deployment_target = '11.0'
-  s.watchos.deployment_target = "4.0"
+  s.ios.deployment_target = '13.0'
 
   s.source_files = 'Sources/*.swift'
   s.requires_arc = true
