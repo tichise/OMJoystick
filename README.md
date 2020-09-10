@@ -12,9 +12,7 @@ import OMJoystick
 import SFSafeSymbols
 import TILogger
 
-struct ContentView: View {
-    let iconSize: CGFloat = 40
-        
+struct ContentView: View {        
     let iconSetting = IconSetting(
         leftIcon: Image(systemSymbol: .arrowLeft),
         rightIcon: Image(systemSymbol: .arrowRight),
