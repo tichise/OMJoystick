@@ -52,6 +52,20 @@ public enum JoyStickState: String {
     case center
 }
 
+public struct IconSetting {
+    var leftIcon: Image
+    var rightIcon: Image
+    var upIcon: Image
+    var downIcon: Image
+    
+    public init(leftIcon: Image, rightIcon: Image, upIcon: Image, downIcon: Image) {
+        self.leftIcon = leftIcon
+        self.rightIcon = rightIcon
+        self.upIcon = upIcon
+        self.downIcon = downIcon
+    }
+}
+
 public struct OMJoystick: View {
     
     var subRingColor: Color
@@ -159,7 +173,8 @@ public struct OMJoystick: View {
         }
     }
     
-    public init(isDebug: Bool = false, leftIcon: Image? = nil, rightIcon: Image? = nil, upIcon: Image? = nil, downIcon: Image? = nil, smallRingRadius: CGFloat = 50, bigRingRadius: CGFloat = 140,
+    
+    public init(isDebug: Bool = false, iconSetting: IconSetting? = nil, smallRingRadius: CGFloat = 50, bigRingRadius: CGFloat = 140,
                 
         subRingColor: Color = .primary,
         bigRingNormalBackgroundColor: Color = .white,
@@ -174,10 +189,12 @@ public struct OMJoystick: View {
         self.bigRingDarkBackgroundColor = bigRingDarkBackgroundColor
         self.bigRingStrokeColor = bigRingStrokeColor
         
-        self.leftIcon = leftIcon
-        self.rightIcon = rightIcon
-        self.upIcon = upIcon
-        self.downIcon = downIcon
+        if let iconSetting = iconSetting {
+            self.leftIcon = iconSetting.leftIcon
+            self.rightIcon = iconSetting.rightIcon
+            self.upIcon = iconSetting.upIcon
+            self.downIcon = iconSetting.downIcon
+        }
         
         self.smallRingRadius = smallRingRadius
         self.bigRingRadius = bigRingRadius
@@ -198,8 +215,6 @@ public struct OMJoystick: View {
                     }
                     
                 }.padding(10)
-                
-                Divider()
             }
             
             upIcon?.renderingMode(.template)
@@ -227,9 +242,7 @@ public struct OMJoystick: View {
             downIcon?.renderingMode(.template)
                 .foregroundColor(.secondary)
             
-            if isDebug {
-                Divider()
-                
+            if isDebug {                
                 HStack(spacing: 15) {
                     Text(joyStickState.rawValue).font(.body)
                 }
