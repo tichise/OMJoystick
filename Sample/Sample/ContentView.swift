@@ -21,16 +21,18 @@ struct ContentView: View {
         downIcon: Image(systemSymbol: .rotateLeft)
     )
     
+    let colorSetting = ColorSetting(subRingColor: .red, bigRingNormalBackgroundColor: .green, bigRingDarkBackgroundColor: .blue, bigRingStrokeColor: .yellow)
+    
     var body: some View {
         GeometryReader { geometry in
             VStack(alignment: .center, spacing: 5) {
-                OMJoystick() { (joyStickState, stickPosition) in
+                OMJoystick(isDebug: true, colorSetting: self.colorSetting) { (joyStickState, stickPosition) in
                     TILogger().info(joyStickState.rawValue)
                     TILogger().info(stickPosition)
                     
                 }.frame(width: geometry.size.width-40, height: geometry.size.width-40)
                 
-                OMJoystick(isDebug: true, iconSetting: self.iconSetting, smallRingRadius: 70, bigRingRadius: 120
+                OMJoystick(isDebug: true, iconSetting: self.iconSetting,  colorSetting: ColorSetting(), smallRingRadius: 70, bigRingRadius: 120
                 ) { (joyStickState, stickPosition)  in
                     TILogger().info(joyStickState.rawValue)
                     TILogger().info(stickPosition)
@@ -46,10 +48,3 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-
-struct ContentView_Previews2: PreviewProvider {
-    static var previews: some View {
-        ContentView().background(Color.black).environment(\.colorScheme, .dark)
-    }
-}
-

@@ -66,6 +66,24 @@ public struct IconSetting {
     }
 }
 
+public struct ColorSetting {
+    var subRingColor: Color
+    var bigRingNormalBackgroundColor: Color
+    var bigRingDarkBackgroundColor: Color
+    var bigRingStrokeColor: Color
+    
+    public init(subRingColor: Color = .primary,
+    bigRingNormalBackgroundColor: Color = .white,
+    bigRingDarkBackgroundColor: Color = .black,
+    bigRingStrokeColor: Color = Color.primary) {
+        
+        self.subRingColor = subRingColor
+        self.bigRingNormalBackgroundColor = bigRingNormalBackgroundColor
+        self.bigRingDarkBackgroundColor = bigRingDarkBackgroundColor
+        self.bigRingStrokeColor = bigRingStrokeColor
+    }
+}
+
 public struct OMJoystick: View {
     
     var subRingColor: Color
@@ -174,20 +192,15 @@ public struct OMJoystick: View {
     }
     
     
-    public init(isDebug: Bool = false, iconSetting: IconSetting? = nil, smallRingRadius: CGFloat = 50, bigRingRadius: CGFloat = 140,
-                
-        subRingColor: Color = .primary,
-        bigRingNormalBackgroundColor: Color = .white,
-        bigRingDarkBackgroundColor: Color = .black,
-        bigRingStrokeColor: Color = Color.primary,
+    public init(isDebug: Bool = false, iconSetting: IconSetting? = nil, colorSetting: ColorSetting, smallRingRadius: CGFloat = 50, bigRingRadius: CGFloat = 140,
         completionHandler: @escaping ((_ joyStickState: JoyStickState, _ stickPosition: CGPoint) -> Void)) {
         
         self.isDebug = isDebug
         
-        self.subRingColor = subRingColor
-        self.bigRingNormalBackgroundColor = bigRingNormalBackgroundColor
-        self.bigRingDarkBackgroundColor = bigRingDarkBackgroundColor
-        self.bigRingStrokeColor = bigRingStrokeColor
+        self.subRingColor = colorSetting.subRingColor
+        self.bigRingNormalBackgroundColor = colorSetting.bigRingNormalBackgroundColor
+        self.bigRingDarkBackgroundColor = colorSetting.bigRingDarkBackgroundColor
+        self.bigRingStrokeColor = colorSetting.bigRingStrokeColor
         
         if let iconSetting = iconSetting {
             self.leftIcon = iconSetting.leftIcon
@@ -251,16 +264,5 @@ public struct OMJoystick: View {
             self.locationX = self.bigRingRadius
             self.locationY = self.bigRingRadius
         }.padding(40)
-    }
-}
-
-struct OMJoystick_Previews: PreviewProvider {
-    static var previews: some View {
-        GeometryReader { geometry in
-            VStack(alignment: .center, spacing: 5) {
-                OMJoystick() { (joyStickState, stickPosition) in
-                }
-            }.background(Color.white)
-        }
     }
 }
