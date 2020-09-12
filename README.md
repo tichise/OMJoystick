@@ -3,7 +3,7 @@
 This is the JoyStick UI library for SwiftUI.
 
 ### Image
-![image](https://user-images.githubusercontent.com/43707/92985960-424fa400-f4f2-11ea-9d6e-10f6cdb40179.png)
+![image](https://user-images.githubusercontent.com/43707/92986397-65c81e00-f4f5-11ea-95fe-f308df819b8e.png)
 
 ### Examples
 
