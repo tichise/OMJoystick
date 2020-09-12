@@ -54,7 +54,7 @@ struct ContentView_Previews: PreviewProvider {
 
 
 ### Installation (CocoaPods)
-`pod OMJoystick`
+`pod 'OMJoystick'`
 
 ### CocoaPods URL
 [OMJoystick on CocoaPods.org](https://cocoapods.org/pods/OMJoystick)
