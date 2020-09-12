@@ -52,3 +52,12 @@ struct ContentView_Previews: PreviewProvider {
 }
 ```
 
+
+### Installation (CocoaPods)
+`pod OMJoystick`
+
+### CocoaPods URL
+[OMJoystick on CocoaPods.org](https://cocoapods.org/pods/OMJoystick)
+
+### License
+OMJoystick is available under the MIT license. See the LICENSE file for more info.
