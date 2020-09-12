@@ -9,11 +9,26 @@ This is the JoyStick UI library for SwiftUI.
 
 #### Swift
 
+Simple
+```html
+import SwiftUI
+import OMJoystick
+
+struct ContentView: View {
+
+    var body: some View {
+        OMJoystick(colorSetting: ColorSetting()) { (joyStickState, stickPosition) in
+        }
+    }
+}
+```
+
+Customize
+
 ```html
 import SwiftUI
 import OMJoystick
 import SFSafeSymbols
-import TILogger
 
 struct ContentView: View {        
     let iconSetting = IconSetting(
@@ -28,16 +43,8 @@ struct ContentView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack(alignment: .center, spacing: 5) {
-                OMJoystick(isDebug: true, colorSetting: self.colorSetting) { (joyStickState, stickPosition) in
-                    TILogger().info(joyStickState.rawValue)
-                    TILogger().info(stickPosition)
-                    
-                }.frame(width: geometry.size.width-40, height: geometry.size.width-40)
-                
                 OMJoystick(isDebug: true, iconSetting: self.iconSetting,  colorSetting: ColorSetting(), smallRingRadius: 70, bigRingRadius: 120
                 ) { (joyStickState, stickPosition)  in
-                    TILogger().info(joyStickState.rawValue)
-                    TILogger().info(stickPosition)
                     
                 }.frame(width: geometry.size.width-40, height: geometry.size.width-40)
             }
