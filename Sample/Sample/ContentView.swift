@@ -21,7 +21,7 @@ struct ContentView: View {
         downIcon: Image(systemSymbol: .arrowDown)
     )
     
-    let colorSetting = ColorSetting(subRingColor: .red, bigRingNormalBackgroundColor: .green, bigRingDarkBackgroundColor: .blue, bigRingStrokeColor: .yellow)
+    let colorSetting = ColorSetting(subRingColor: .red, bigRingNormalBackgroundColor: .green, bigRingDarkBackgroundColor: .blue, bigRingStrokeColor: .yellow, iconColor: .red)
     
     var body: some View {
         GeometryReader { geometry in
@@ -32,7 +32,7 @@ struct ContentView: View {
                     
                 }.frame(width: geometry.size.width-40, height: geometry.size.width-40)
                 
-                OMJoystick(isDebug: true, iconSetting: self.iconSetting,  colorSetting: ColorSetting(), smallRingRadius: 70, bigRingRadius: 120
+                OMJoystick(isDebug: true, iconSetting: self.iconSetting,  colorSetting: ColorSetting(iconColor: .orange), smallRingRadius: 70, bigRingRadius: 120
                 ) { (joyStickState, stickPosition)  in
                     TILogger().info(joyStickState.rawValue)
                     TILogger().info(stickPosition)
