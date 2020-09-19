@@ -71,16 +71,19 @@ public struct ColorSetting {
     var bigRingNormalBackgroundColor: Color
     var bigRingDarkBackgroundColor: Color
     var bigRingStrokeColor: Color
+    var iconColor: Color
     
     public init(subRingColor: Color = .primary,
     bigRingNormalBackgroundColor: Color = .white,
     bigRingDarkBackgroundColor: Color = .black,
-    bigRingStrokeColor: Color = Color.primary) {
+    bigRingStrokeColor: Color = Color.primary,
+    iconColor: Color = Color.primary) {
         
         self.subRingColor = subRingColor
         self.bigRingNormalBackgroundColor = bigRingNormalBackgroundColor
         self.bigRingDarkBackgroundColor = bigRingDarkBackgroundColor
         self.bigRingStrokeColor = bigRingStrokeColor
+        self.iconColor = iconColor
     }
 }
 
@@ -234,11 +237,11 @@ public struct OMJoystick: View {
             }
             
             upIcon?.renderingMode(.template)
-                .foregroundColor(.secondary).padding(iconPadding)
+                .foregroundColor(iconColor).padding(iconPadding)
             
             HStack() {
                 leftIcon?.renderingMode(.template)
-                    .foregroundColor(.secondary).padding(iconPadding)
+                    .foregroundColor(iconColor).padding(iconPadding)
                 
                 ZStack {
                     // 中央は直径280の場合は140:140
@@ -251,11 +254,11 @@ public struct OMJoystick: View {
                 }
                 
                 rightIcon?.renderingMode(.template)
-                    .foregroundColor(.secondary).padding(iconPadding)
+                    .foregroundColor(iconColor).padding(iconPadding)
             }
             
             downIcon?.renderingMode(.template)
-                .foregroundColor(.secondary).padding(iconPadding)
+                .foregroundColor(iconColor).padding(iconPadding)
             
             if isDebug {                
                 HStack(spacing: 15) {
