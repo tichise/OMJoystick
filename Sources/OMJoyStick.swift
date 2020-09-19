@@ -89,6 +89,7 @@ public struct ColorSetting {
 
 public struct OMJoystick: View {
     
+    var iconColor: Color
     var subRingColor: Color
     var bigRingNormalBackgroundColor: Color
     var bigRingDarkBackgroundColor: Color
@@ -203,6 +204,7 @@ public struct OMJoystick: View {
         
         self.isDebug = isDebug
         
+        self.iconColor = colorSetting.iconColor
         self.subRingColor = colorSetting.subRingColor
         self.bigRingNormalBackgroundColor = colorSetting.bigRingNormalBackgroundColor
         self.bigRingDarkBackgroundColor = colorSetting.bigRingDarkBackgroundColor

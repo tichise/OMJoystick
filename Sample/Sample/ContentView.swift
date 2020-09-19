@@ -21,7 +21,7 @@ struct ContentView: View {
         downIcon: Image(systemSymbol: .arrowDown)
     )
     
-    let colorSetting = ColorSetting(subRingColor: .red, bigRingNormalBackgroundColor: .green, bigRingDarkBackgroundColor: .blue, bigRingStrokeColor: .yellow)
+    let colorSetting = ColorSetting(subRingColor: .red, bigRingNormalBackgroundColor: .green, bigRingDarkBackgroundColor: .blue, bigRingStrokeColor: .yellow, iconColor: .red)
     
     var body: some View {
         GeometryReader { geometry in
