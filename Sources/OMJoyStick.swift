@@ -161,7 +161,7 @@ public struct OMJoystick: View {
         // minimumDistanceが1以上だとタッチイベントを一切拾わない
         DragGesture(minimumDistance: 0)
             .onChanged{ value in
-                let distance = self.org.distanceToPoint(otherPoint: value.location)
+                let distance = self.org.getDistance(otherPoint: value.location)
                 
                 let smallRingLimitCenter: CGFloat = self.bigRingRadius - self.smallRingRadius
                 

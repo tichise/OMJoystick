@@ -29,7 +29,7 @@ extension CGPoint {
         return radians
     }
     
-    func distanceToPoint(otherPoint: CGPoint) -> CGFloat {
+    func getDistance(otherPoint: CGPoint) -> CGFloat {
         return sqrt(pow((otherPoint.x - x), 2) + pow((otherPoint.y - y), 2))
     }
 }
