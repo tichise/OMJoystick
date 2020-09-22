@@ -161,7 +161,7 @@ public struct OMJoystick: View {
         // minimumDistanceが1以上だとタッチイベントを一切拾わない
         DragGesture(minimumDistance: 0)
             .onChanged{ value in
-                let distance = self.org.distanceToPoint(otherPoint: value.location)
+                let distance = self.org.getDistance(otherPoint: value.location)
                 
                 let smallRingLimitCenter: CGFloat = self.bigRingRadius - self.smallRingRadius
                 
@@ -173,9 +173,9 @@ public struct OMJoystick: View {
                     
                 } else {
                     // 円の範囲外の場合は
-                    let angle = self.org.angleToPoint(pointOnCircle: value.location)
+                    let radian = self.org.getRadian(pointOnCircle: value.location)
                     
-                    let pointOnCircle = self.org.pointOnCircle(radius: smallRingLimitCenter, angle: angle)
+                    let pointOnCircle = self.org.getPointOnCircle(radius: smallRingLimitCenter, radian: radian)
                     
                     self.locationX = pointOnCircle.x
                     self.locationY = pointOnCircle.y

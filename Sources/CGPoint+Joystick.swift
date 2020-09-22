@@ -9,27 +9,27 @@ import UIKit
 
 extension CGPoint {
     
-    func pointOnCircle(radius: CGFloat, angle: CGFloat) -> CGPoint {
-        let x = self.x + radius * cos(angle)
-        let y = self.y + radius * sin(angle)
+    func getPointOnCircle(radius: CGFloat, radian: CGFloat) -> CGPoint {
+        let x = self.x + radius * cos(radian)
+        let y = self.y + radius * sin(radian)
         
         return CGPoint(x: x, y: y)
     }
     
-    func angleToPoint(pointOnCircle: CGPoint) -> CGFloat {
+    func getRadian(pointOnCircle: CGPoint) -> CGFloat {
         
         let originX = pointOnCircle.x - self.x
         let originY = pointOnCircle.y - self.y
-        var radians = atan2(originY, originX)
+        var radian = atan2(originY, originX)
         
-        while radians < 0 {
-            radians += CGFloat(2 * Double.pi)
+        while radian < 0 {
+            radian += CGFloat(2 * Double.pi)
         }
         
-        return radians
+        return radian
     }
     
-    func distanceToPoint(otherPoint: CGPoint) -> CGFloat {
+    func getDistance(otherPoint: CGPoint) -> CGFloat {
         return sqrt(pow((otherPoint.x - x), 2) + pow((otherPoint.y - y), 2))
     }
 }
