@@ -173,9 +173,9 @@ public struct OMJoystick: View {
                     
                 } else {
                     // 円の範囲外の場合は
-                    let radians = self.org.getRadian(pointOnCircle: value.location)
+                    let radian = self.org.getRadian(pointOnCircle: value.location)
                     
-                    let pointOnCircle = self.org.getPointOnCircle(radius: smallRingLimitCenter, radian: radians)
+                    let pointOnCircle = self.org.getPointOnCircle(radius: smallRingLimitCenter, radian: radian)
                     
                     self.locationX = pointOnCircle.x
                     self.locationY = pointOnCircle.y
