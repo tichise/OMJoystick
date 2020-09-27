@@ -46,7 +46,7 @@ struct ContentView: View {
                 OMJoystick(isDebug: true, iconSetting: self.iconSetting,  colorSetting: ColorSetting(), smallRingRadius: 70, bigRingRadius: 120
                 ) { (joyStickState, stickPosition)  in
                     
-                }.frame(width: geometry.size.width-40, height: geometry.size.width-40)
+                }.frame(width: 315, height: 315)
             }
         }
     }
