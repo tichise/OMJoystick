@@ -252,7 +252,7 @@ public struct OMJoystick: View {
                         bigRingStrokeColor: bigRingStrokeColor,
                         bigRingDiameter: bigRingDiameter).gesture(dragGesture)
                     
-                    SmallRing(smallRingDiameter: self.smallRingDiameter, subRingColor: subRingColor).offset(x: smallRingLocationX, y: smallRingLocationY)
+                    SmallRing(smallRingDiameter: self.smallRingDiameter, subRingColor: subRingColor).offset(x: smallRingLocationX, y: smallRingLocationY).allowsHitTesting(false)
                 }
                 
                 rightIcon?.renderingMode(.template)
