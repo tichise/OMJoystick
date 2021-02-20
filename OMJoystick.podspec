@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'OMJoystick'
-  s.version = '0.6.1'
+  s.version = '0.6.2'
   s.swift_versions = '5.0'
   s.license = 'MIT'
   s.summary = 'This is the Joystick UI library for SwiftUI.'
