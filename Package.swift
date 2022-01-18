@@ -13,7 +13,6 @@ let package = Package(
     dependencies: [],
     targets: [
         .target(name: "OMJoystick", path: "Sources"),
-        .testTarget(name: "OMJoystickTests", dependencies: ["OMJoystick"]),
     ],
     swiftLanguageVersions: [.v5]
 )
