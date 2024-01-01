@@ -10,6 +10,8 @@ import SwiftUI
 
 public struct OMJoystick: View {
     
+    @ObservedObject var viewModel: OMJoystickViewModel
+    
     var iconColor: Color
     var subRingColor: Color
     var bigRingNormalBackgroundColor: Color
@@ -120,7 +122,7 @@ public struct OMJoystick: View {
     }
     
     
-    public init(isDebug: Bool = false, iconSetting: IconSetting? = nil, colorSetting: ColorSetting, smallRingRadius: CGFloat = 50, bigRingRadius: CGFloat = 140,
+    public init(isDebug: Bool = false, iconSetting: IconSetting? = nil, colorSetting: ColorSetting, smallRingRadius: CGFloat = 50, bigRingRadius: CGFloat = 140, isOctantLinesVisible: Bool = false,
         completionHandler: @escaping ((_ joyStickState: JoyStickState, _ stickPosition: CGPoint) -> Void)) {
         
         self.isDebug = isDebug
@@ -142,6 +144,9 @@ public struct OMJoystick: View {
         self.bigRingRadius = bigRingRadius
         
         self.completionHandler = completionHandler
+        
+        self.viewModel = OMJoystickViewModel()
+        self.viewModel.isOctantLinesVisible = isOctantLinesVisible
     }
     
     public var body: some View {
@@ -171,9 +176,9 @@ public struct OMJoystick: View {
                     BigRing(
                         bigRingNormalBackgroundColor: bigRingNormalBackgroundColor,  bigRingDarkBackgroundColor: bigRingDarkBackgroundColor, 
                         bigRingStrokeColor: bigRingStrokeColor,
-                        bigRingDiameter: bigRingDiameter).gesture(dragGesture)
+                        bigRingDiameter: bigRingDiameter).environmentObject(viewModel).gesture(dragGesture)
                     
-                    SmallRing(smallRingDiameter: self.smallRingDiameter, subRingColor: subRingColor).offset(x: smallRingLocationX, y: smallRingLocationY).allowsHitTesting(false)
+                    SmallRing(smallRingDiameter: self.smallRingDiameter, subRingColor: subRingColor).offset(x: smallRingLocationX, y: smallRingLocationY).environmentObject(viewModel).allowsHitTesting(false)
                 }
                 
                 rightIcon?.renderingMode(.template)
