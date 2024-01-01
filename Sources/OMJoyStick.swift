@@ -27,12 +27,12 @@ public struct OMJoystick: View {
     
     // デバッグモード
     var isDebug: Bool
-
-    // アイコンのパディング
-    let iconPadding: CGFloat = 10
     
     // コールバック
     public var completionHandler: ((_ joyStickState: JoyStickState, _ stickPosition: CGPoint) -> Void)
+
+    // アイコンのパディング
+    let iconPadding: CGFloat = 10
     
     var dragGesture: some Gesture {
         // minimumDistanceが1以上だとタッチイベントを一切拾わない
