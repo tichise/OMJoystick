@@ -11,23 +11,30 @@ import SwiftUI
 public struct OMJoystick: View {
     @ObservedObject var viewModel: OMJoystickViewModel
 
-    var iconColor: Color
-    var subRingColor: Color
-    var bigRingNormalBackgroundColor: Color
-    var bigRingDarkBackgroundColor: Color
+    var iconColor: Color // アイコンの色
+    var subRingColor: Color // 小さなリングの色
+    var bigRingNormalBackgroundColor: Color // 大きなリングの背景色
+    var bigRingDarkBackgroundColor: Color // 大きなリングのダークモード時の背景色
+    
+    // 大きなリングのストローク色
     var bigRingStrokeColor: Color
 
+    // アイコン
     var leftIcon: Image?
     var rightIcon: Image?
     var upIcon: Image?
     var downIcon: Image?
     
+    // デバッグモード
     var isDebug: Bool
 
+    // アイコンのパディング
     let iconPadding: CGFloat = 10
 
+    // コールバック
     public var completionHandler: ((_ joyStickState: JoyStickState, _ stickPosition: CGPoint) -> Void)
 
+    // イニシャライザ
     public init(isDebug: Bool = false, iconSetting: IconSetting? = nil, colorSetting: ColorSetting, smallRingRadius: CGFloat = 50, bigRingRadius: CGFloat = 140, completionHandler: @escaping ((_ joyStickState: JoyStickState, _ stickPosition: CGPoint) -> Void)) {
         self.isDebug = isDebug
         self.iconColor = colorSetting.iconColor
@@ -49,6 +56,7 @@ public struct OMJoystick: View {
     
     public var body: some View {
         VStack {
+            // デバッグ
             if isDebug {
                 VStack {
                     HStack(spacing: 15) {
@@ -60,15 +68,18 @@ public struct OMJoystick: View {
                     
                 }.padding(10)
             }
-            
+
+            // 上の向きのアイコン
             upIcon?.renderingMode(.template)
                 .foregroundColor(iconColor).padding(iconPadding)
             
             HStack {
+                // 左の向きのアイコン
                 leftIcon?.renderingMode(.template)
                     .foregroundColor(iconColor).padding(iconPadding)
                 
                 ZStack {
+                    // 大きなリング
                     BigRing(
                         bigRingNormalBackgroundColor: bigRingNormalBackgroundColor,
                         bigRingDarkBackgroundColor: bigRingDarkBackgroundColor,
@@ -76,6 +87,7 @@ public struct OMJoystick: View {
                         bigRingDiameter: viewModel.bigRingDiameter
                     ).environmentObject(viewModel).gesture(viewModel.dragGesture)
 
+                    // 小さなリング
                     SmallRing(
                         smallRingDiameter: viewModel.smallRingDiameter,
                         subRingColor: subRingColor
@@ -83,10 +95,12 @@ public struct OMJoystick: View {
                     .allowsHitTesting(false)
                 }
                 
+                // 右の向きのアイコン
                 rightIcon?.renderingMode(.template)
                     .foregroundColor(iconColor).padding(iconPadding)
             }
             
+            // 下の向きのアイコン
             downIcon?.renderingMode(.template)
                 .foregroundColor(iconColor).padding(iconPadding)
             
