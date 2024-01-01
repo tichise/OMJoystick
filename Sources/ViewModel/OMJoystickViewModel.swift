@@ -14,7 +14,7 @@ class OMJoystickViewModel: ObservableObject {
     @Published var joyStickState: JoyStickState
     
     // 8等分のラインを表示するか制御する
-    @Published var isSplitLine: Bool = false
+    @Published var isOctantLinesVisible: Bool = false
 
     // 大きなリングの中心座標
     var org: CGPoint {
@@ -37,13 +37,13 @@ class OMJoystickViewModel: ObservableObject {
         smallRingRadius * 2
     }
 
-    init(bigRingRadius: CGFloat, smallRingRadius: CGFloat, isSplitLine: Bool) {
+    init(bigRingRadius: CGFloat, smallRingRadius: CGFloat, isOctantLinesVisible: Bool) {
         self.bigRingRadius = bigRingRadius
         self.smallRingRadius = smallRingRadius
         self.locationX = bigRingRadius
         self.locationY = bigRingRadius
         self.joyStickState = .center
-        self.isSplitLine = isSplitLine
+        self.isOctantLinesVisible = isOctantLinesVisible
     }
 
     var stickPosition: CGPoint {

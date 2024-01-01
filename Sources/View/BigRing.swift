@@ -28,7 +28,7 @@ struct BigRing: View {
                 .frame(width: bigRingDiameter, height: bigRingDiameter)
             
             // 
-            if omJoystickViewModel.isSplitLine {
+            if omJoystickViewModel.isOctantLinesVisible {
                 let radius = min(bigRingDiameter, bigRingDiameter) / 2
                 let center = CGPoint(x: bigRingDiameter / 2, y: bigRingDiameter / 2)
                 
