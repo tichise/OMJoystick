@@ -13,17 +13,23 @@ class OMJoystickViewModel: ObservableObject {
     @Published var locationY: CGFloat
     @Published var joyStickState: JoyStickState
 
+    // 大きなリングの中心座標
     var org: CGPoint {
         CGPoint(x: self.bigRingRadius, y: self.bigRingRadius)
     }
 
+    // 大きなリングの半径
     let bigRingRadius: CGFloat
+    
+    // 小さなリングの半径
     let smallRingRadius: CGFloat
     
+    // 大きなリングの直径
     var bigRingDiameter: CGFloat {
         bigRingRadius * 2
     }
 
+    // 小さなリングの直径
     var smallRingDiameter: CGFloat {
         smallRingRadius * 2
     }
@@ -50,6 +56,7 @@ class OMJoystickViewModel: ObservableObject {
         locationY - bigRingRadius
     }
 
+    // ジョイスティックの状態を取得する
     func getJoyStickState() -> JoyStickState {
         var state: JoyStickState = .center
         let xValue = locationX - bigRingRadius
@@ -64,6 +71,7 @@ class OMJoystickViewModel: ObservableObject {
         return state
     }
 
+    // ドラッグ時のジェスチャー。
     var dragGesture: some Gesture {
         DragGesture(minimumDistance: 0)
             .onChanged{ [weak self] value in
@@ -91,6 +99,7 @@ class OMJoystickViewModel: ObservableObject {
             }
     }
 
+    // ジョイスティックの位置をリセットする
     func resetPosition() {
         locationX = bigRingRadius
         locationY = bigRingRadius
