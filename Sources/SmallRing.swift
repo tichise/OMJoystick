@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Small ring
 struct SmallRing: View {
     var smallRingDiameter: CGFloat
     var subRingColor: Color

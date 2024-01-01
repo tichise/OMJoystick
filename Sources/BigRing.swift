@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// OMJoystick
 struct BigRing: View {
     @Environment(\.colorScheme) var colorScheme
     
@@ -17,7 +18,7 @@ struct BigRing: View {
     var bigRingDiameter: CGFloat
     
     // 8等分のラインを表示するか制御する
-    @Binding var isSplitLine: Bool
+    @Binding var isSplitLine: Bool = false
     
     var body: some View {
         ZStack {

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Icon setting for OMJoystick
 public struct IconSetting {
     var leftIcon: Image
     var rightIcon: Image
