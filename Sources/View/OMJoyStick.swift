@@ -137,8 +137,7 @@ struct OMJoystick_Previews2: PreviewProvider {
     static var previews: some View {
         GeometryReader { geometry in
             VStack(alignment: .center, spacing: 5) {
-                OMJoystick(isDebug: true,  colorSetting: ColorSetting(iconColor: .orange), smallRingRadius: 70, bigRingRadius: 120
-                ) { (joyStickState, stickPosition)  in
+                OMJoystick(isDebug: true,  colorSetting: ColorSetting(bigRingStrokeColor: .gray, iconColor: .orange), smallRingRadius: 70, bigRingRadius: 120,isSplitLine: true) { (joyStickState, stickPosition)  in
                     debugPrint(joyStickState.rawValue)
                     debugPrint(stickPosition)
                     
@@ -154,7 +153,7 @@ struct OMJoystick_Previews3: PreviewProvider {
         GeometryReader { geometry in
             VStack(alignment: .center, spacing: 5) {
                 OMJoystick(isDebug: true,  colorSetting: ColorSetting(iconColor: .orange), smallRingRadius: 10, bigRingRadius: 20
-                ) { (joyStickState, stickPosition)  in
+                           ,isSplitLine: true) { (joyStickState, stickPosition)  in
                     debugPrint(joyStickState.rawValue)
                     debugPrint(stickPosition)
                     
