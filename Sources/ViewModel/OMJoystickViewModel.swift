@@ -12,6 +12,9 @@ class OMJoystickViewModel: ObservableObject {
     @Published var locationX: CGFloat
     @Published var locationY: CGFloat
     @Published var joyStickState: JoyStickState
+    
+    // 8等分のラインを表示するか制御する
+    @Published var isSplitLine: Bool = false
 
     // 大きなリングの中心座標
     var org: CGPoint {

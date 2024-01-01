@@ -7,8 +7,10 @@
 
 import SwiftUI
 
-/// OMJoystick
+/// 大きなリング
 struct BigRing: View {
+    @EnvironmentObject var omJoystickViewModel: OMJoystickViewModel
+
     @Environment(\.colorScheme) var colorScheme
     
     var bigRingNormalBackgroundColor: Color
@@ -16,9 +18,6 @@ struct BigRing: View {
     var bigRingStrokeColor: Color
     
     var bigRingDiameter: CGFloat
-    
-    // 8等分のラインを表示するか制御する
-    var isSplitLine: Bool = false
     
     var body: some View {
         ZStack {
@@ -28,7 +27,8 @@ struct BigRing: View {
             Circle().fill(colorScheme == .dark ? bigRingDarkBackgroundColor : bigRingNormalBackgroundColor)
                 .frame(width: bigRingDiameter, height: bigRingDiameter)
             
-            if isSplitLine {
+            // 
+            if omJoystickViewModel.isSplitLine {
                 let radius = min(bigRingDiameter, bigRingDiameter) / 2
                 let center = CGPoint(x: bigRingDiameter / 2, y: bigRingDiameter / 2)
                 
@@ -54,6 +54,6 @@ struct BigRing: View {
 // BingRingのPreview用
 struct BigRing_Previews: PreviewProvider {
     static var previews: some View {
-        BigRing(bigRingNormalBackgroundColor: .white, bigRingDarkBackgroundColor: .black, bigRingStrokeColor: .primary, bigRingDiameter: 100, isSplitLine: .constant(false))
+        BigRing(bigRingNormalBackgroundColor: .white, bigRingDarkBackgroundColor: .black, bigRingStrokeColor: .primary, bigRingDiameter: 100)
     }
 }

@@ -74,12 +74,12 @@ public struct OMJoystick: View {
                         bigRingDarkBackgroundColor: bigRingDarkBackgroundColor,
                         bigRingStrokeColor: bigRingStrokeColor,
                         bigRingDiameter: viewModel.bigRingDiameter
-                    ).gesture(viewModel.dragGesture)
+                    ).environmentObject(viewModel).gesture(viewModel.dragGesture)
 
                     SmallRing(
                         smallRingDiameter: viewModel.smallRingDiameter,
                         subRingColor: subRingColor
-                    ).offset(x: viewModel.smallRingLocationX, y: viewModel.smallRingLocationY)
+                    ).environmentObject(viewModel).offset(x: viewModel.smallRingLocationX, y: viewModel.smallRingLocationY)
                     .allowsHitTesting(false)
                 }
                 
