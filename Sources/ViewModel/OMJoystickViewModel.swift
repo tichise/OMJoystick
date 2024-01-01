@@ -75,34 +75,6 @@ class OMJoystickViewModel: ObservableObject {
         return state
     }
 
-    // ドラッグ時のジェスチャー。
-    var dragGesture: some Gesture {
-        DragGesture(minimumDistance: 0)
-            .onChanged{ [weak self] value in
-                guard let self = self else { return }
-                let distance = self.org.getDistance(otherPoint: value.location)
-                let smallRingLimitCenter = self.bigRingRadius - self.smallRingRadius
-                
-                if (distance <= smallRingLimitCenter) {
-                    self.locationX = value.location.x
-                    self.locationY = value.location.y
-                } else {
-                    let radian = self.org.getRadian(pointOnCircle: value.location)
-                    let pointOnCircle = self.org.getPointOnCircle(radius: smallRingLimitCenter, radian: radian)
-                    self.locationX = pointOnCircle.x
-                    self.locationY = pointOnCircle.y
-                }
-                
-                self.joyStickState = self.getJoyStickState()
-                // completionHandlerの呼び出しを追加する必要がある
-            }
-            .onEnded{ [weak self] value in
-                guard let self = self else { return }
-                self.resetPosition()
-                // completionHandlerの呼び出しを追加する必要がある
-            }
-    }
-
     // ジョイスティックの位置をリセットする
     func resetPosition() {
         locationX = bigRingRadius

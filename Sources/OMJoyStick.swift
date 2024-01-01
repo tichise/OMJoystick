@@ -33,6 +33,45 @@ public struct OMJoystick: View {
     
     // コールバック
     public var completionHandler: ((_ joyStickState: JoyStickState, _ stickPosition: CGPoint) -> Void)
+    
+    var dragGesture: some Gesture {
+        // minimumDistanceが1以上だとタッチイベントを一切拾わない
+        DragGesture(minimumDistance: 0)
+            .onChanged{ value in
+                let distance = viewModel.org.getDistance(otherPoint: value.location)
+                
+                let smallRingLimitCenter: CGFloat = viewModel.bigRingRadius - viewModel.smallRingRadius
+                
+                if (distance <= smallRingLimitCenter) {
+                    // 円の範囲内
+                    viewModel.locationX = value.location.x
+                    viewModel.locationY = value.location.y
+                } else {
+                    // 円の範囲外の場合は
+                    let radian = viewModel.org.getRadian(pointOnCircle: value.location)
+                    
+                    let pointOnCircle = viewModel.org.getPointOnCircle(radius: smallRingLimitCenter, radian: radian)
+                    
+                    viewModel.locationX = pointOnCircle.x
+                    viewModel.locationY = pointOnCircle.y
+                }
+                
+                viewModel.joyStickState = viewModel.getJoyStickState()
+                
+                self.completionHandler(viewModel.joyStickState,  viewModel.stickPosition)
+        }
+        .onEnded{ value in
+            viewModel.locationX = viewModel.bigRingDiameter/2
+            viewModel.locationY = viewModel.bigRingDiameter/2
+            
+            viewModel.locationX = viewModel.bigRingRadius
+            viewModel.locationY = viewModel.bigRingRadius
+            
+            viewModel.joyStickState = .center
+            
+            self.completionHandler(viewModel.joyStickState,  viewModel.stickPosition)
+        }
+    }
 
     // イニシャライザ
     public init(isDebug: Bool = false, iconSetting: IconSetting? = nil, colorSetting: ColorSetting, smallRingRadius: CGFloat = 50, bigRingRadius: CGFloat = 140, isOctantLinesVisible: Bool = false, completionHandler: @escaping ((_ joyStickState: JoyStickState, _ stickPosition: CGPoint) -> Void)) {
@@ -85,7 +124,7 @@ public struct OMJoystick: View {
                         bigRingDarkBackgroundColor: bigRingDarkBackgroundColor,
                         bigRingStrokeColor: bigRingStrokeColor,
                         bigRingDiameter: viewModel.bigRingDiameter
-                    ).environmentObject(viewModel).gesture(viewModel.dragGesture)
+                    ).environmentObject(viewModel).gesture(dragGesture)
 
                     // 小さなリング
                     SmallRing(
@@ -162,4 +201,3 @@ struct OMJoystick_Previews3: PreviewProvider {
         }
     }
 }
-
