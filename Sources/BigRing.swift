@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// OMJoystick
 struct BigRing: View {
     @Environment(\.colorScheme) var colorScheme
     
@@ -18,9 +19,11 @@ struct BigRing: View {
     
     var body: some View {
         ZStack {
+            // 外枠
             Circle().stroke(bigRingStrokeColor, lineWidth: 10)
                 .frame(width: bigRingDiameter, height: bigRingDiameter)
             
+            // 内側
             Circle().fill(colorScheme == .dark ? bigRingDarkBackgroundColor : bigRingNormalBackgroundColor)
                 .frame(width: bigRingDiameter, height: bigRingDiameter)
         }

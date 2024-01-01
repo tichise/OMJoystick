@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// JoyStickState
 public enum JoyStickState: String {
     case up
     case down

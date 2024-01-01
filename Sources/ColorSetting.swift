@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Color setting for OMJoystick
 public struct ColorSetting {
     var subRingColor: Color
     var bigRingNormalBackgroundColor: Color
