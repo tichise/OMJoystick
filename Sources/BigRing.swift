@@ -27,7 +27,6 @@ struct BigRing: View {
             Circle().fill(colorScheme == .dark ? bigRingDarkBackgroundColor : bigRingNormalBackgroundColor)
                 .frame(width: bigRingDiameter, height: bigRingDiameter)
             
-            // 
             if omJoystickViewModel.isOctantLinesVisible {
                 let radius = min(bigRingDiameter, bigRingDiameter) / 2
                 let center = CGPoint(x: bigRingDiameter / 2, y: bigRingDiameter / 2)
