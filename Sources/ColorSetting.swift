@@ -15,10 +15,10 @@ public struct ColorSetting {
     var bigRingStrokeColor: Color
     var iconColor: Color
     
-    public init(subRingColor: Color = .primary,
+    public init(subRingColor: Color = .black,
     bigRingNormalBackgroundColor: Color = .white,
     bigRingDarkBackgroundColor: Color = .black,
-    bigRingStrokeColor: Color = Color.primary,
+    bigRingStrokeColor: Color = Color.black,
     iconColor: Color = Color.primary) {
         
         self.subRingColor = subRingColor
