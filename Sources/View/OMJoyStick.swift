@@ -176,7 +176,7 @@ public struct OMJoystick: View {
                     BigRing(
                                 bigRingNormalBackgroundColor: bigRingNormalBackgroundColor,  bigRingDarkBackgroundColor: bigRingDarkBackgroundColor,
                                 bigRingStrokeColor: bigRingStrokeColor,
-                                bigRingDiameter: bigRingDiameter, isSplitLine: .constant(true)).gesture(dragGesture)
+                                bigRingDiameter: bigRingDiameter).gesture(dragGesture)
 
                     SmallRing(smallRingDiameter: self.smallRingDiameter, subRingColor: subRingColor).offset(x: smallRingLocationX, y: smallRingLocationY).allowsHitTesting(false)
                      
