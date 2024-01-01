@@ -7,8 +7,10 @@
 
 import SwiftUI
 
-/// OMJoystick
+/// 大きなリング
 struct BigRing: View {
+    @EnvironmentObject var omJoystickViewModel: OMJoystickViewModel
+
     @Environment(\.colorScheme) var colorScheme
     
     var bigRingNormalBackgroundColor: Color
@@ -19,14 +21,32 @@ struct BigRing: View {
     
     var body: some View {
         ZStack {
-            // 外枠
             Circle().stroke(bigRingStrokeColor, lineWidth: 10)
                 .frame(width: bigRingDiameter, height: bigRingDiameter)
             
-            // 内側
             Circle().fill(colorScheme == .dark ? bigRingDarkBackgroundColor : bigRingNormalBackgroundColor)
                 .frame(width: bigRingDiameter, height: bigRingDiameter)
-        }
+            
+            if omJoystickViewModel.isOctantLinesVisible {
+                let radius = min(bigRingDiameter, bigRingDiameter) / 2
+                let center = CGPoint(x: bigRingDiameter / 2, y: bigRingDiameter / 2)
+                
+                 
+                    ForEach(0..<8) { i in
+                        Path { path in
+                            path.move(to: center)
+                            let angle = CGFloat(i) * .pi / 4 // 45度をラジアンに変換
+                            let endX = center.x + radius * cos(angle)
+                            let endY = center.y + radius * sin(angle)
+                            path.addLine(to: CGPoint(x: endX, y: endY))
+                        }
+                        .stroke(bigRingStrokeColor, lineWidth: 1)
+                    }
+            }
+            
+            
+
+        }.frame(width: bigRingDiameter, height: bigRingDiameter)
     }
 }
 

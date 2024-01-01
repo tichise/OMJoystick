@@ -9,6 +9,8 @@ import SwiftUI
 
 /// Small ring
 struct SmallRing: View {
+    @EnvironmentObject var viewModel: OMJoystickViewModel
+
     var smallRingDiameter: CGFloat
     var subRingColor: Color
     
