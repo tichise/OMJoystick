@@ -30,12 +30,12 @@ public struct OMJoystick: View {
 
     // アイコンのパディング
     let iconPadding: CGFloat = 10
-
+    
     // コールバック
     public var completionHandler: ((_ joyStickState: JoyStickState, _ stickPosition: CGPoint) -> Void)
 
     // イニシャライザ
-    public init(isDebug: Bool = false, iconSetting: IconSetting? = nil, colorSetting: ColorSetting, smallRingRadius: CGFloat = 50, bigRingRadius: CGFloat = 140, completionHandler: @escaping ((_ joyStickState: JoyStickState, _ stickPosition: CGPoint) -> Void)) {
+    public init(isDebug: Bool = false, iconSetting: IconSetting? = nil, colorSetting: ColorSetting, smallRingRadius: CGFloat = 50, bigRingRadius: CGFloat = 140, isSplitLine: Bool = false, completionHandler: @escaping ((_ joyStickState: JoyStickState, _ stickPosition: CGPoint) -> Void)) {
         self.isDebug = isDebug
         self.iconColor = colorSetting.iconColor
         self.subRingColor = colorSetting.subRingColor
@@ -51,7 +51,7 @@ public struct OMJoystick: View {
         }
         
         self.completionHandler = completionHandler
-        self.viewModel = OMJoystickViewModel(bigRingRadius: bigRingRadius, smallRingRadius: smallRingRadius)
+        self.viewModel = OMJoystickViewModel(bigRingRadius: bigRingRadius, smallRingRadius: smallRingRadius, isSplitLine: isSplitLine)
     }
     
     public var body: some View {

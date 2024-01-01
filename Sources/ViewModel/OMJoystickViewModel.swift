@@ -37,12 +37,13 @@ class OMJoystickViewModel: ObservableObject {
         smallRingRadius * 2
     }
 
-    init(bigRingRadius: CGFloat, smallRingRadius: CGFloat) {
+    init(bigRingRadius: CGFloat, smallRingRadius: CGFloat, isSplitLine: Bool) {
         self.bigRingRadius = bigRingRadius
         self.smallRingRadius = smallRingRadius
         self.locationX = bigRingRadius
         self.locationY = bigRingRadius
         self.joyStickState = .center
+        self.isSplitLine = isSplitLine
     }
 
     var stickPosition: CGPoint {
