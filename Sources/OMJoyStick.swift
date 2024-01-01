@@ -282,9 +282,24 @@ struct OMJoystick_Previews: PreviewProvider {
                 OMJoystick(isDebug: true, colorSetting: ColorSetting(subRingColor: .red, bigRingNormalBackgroundColor: .green, bigRingDarkBackgroundColor: .blue, bigRingStrokeColor: .yellow, iconColor: .red)) { (joyStickState, stickPosition) in
                     
                 }.frame(width: geometry.size.width-40, height: geometry.size.width-40)
-                
-                OMJoystick(isDebug: true,  colorSetting: ColorSetting(iconColor: .orange), smallRingRadius: 70, bigRingRadius: 120
+            }
+        }
+    }
+}
+
+// preview
+struct OMJoystick2_Previews: PreviewProvider {
+
+    let colorSetting = ColorSetting(subRingColor: .red, bigRingNormalBackgroundColor: .green, bigRingDarkBackgroundColor: .blue, bigRingStrokeColor: .yellow, iconColor: .red)
+    
+    static var previews: some View {
+        GeometryReader { geometry in
+            VStack(alignment: .center, spacing: 5) {
+
+                OMJoystick(isDebug: true, colorSetting: ColorSetting(iconColor: .orange), smallRingRadius: 70, bigRingRadius: 120
                 ) { (joyStickState, stickPosition)  in
+                    debugPrint(joyStickState.rawValue)
+                    debugPrint(stickPosition)
                     
                 }.frame(width: geometry.size.width-40, height: geometry.size.width-40)
             }
