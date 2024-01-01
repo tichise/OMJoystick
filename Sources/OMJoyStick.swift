@@ -8,85 +8,6 @@
 
 import SwiftUI
 
-struct SmallRing: View {
-    var smallRingDiameter: CGFloat
-    var subRingColor: Color
-    
-    var body: some View {
-        Circle().fill(subRingColor)
-            .frame(width: smallRingDiameter, height: smallRingDiameter)
-    }
-}
-
-struct BigRing: View {
-    @Environment(\.colorScheme) var colorScheme
-    
-    var bigRingNormalBackgroundColor: Color
-    var bigRingDarkBackgroundColor: Color
-    var bigRingStrokeColor: Color
-    
-    var bigRingDiameter: CGFloat
-    
-    var body: some View {
-        ZStack {
-            Circle().stroke(bigRingStrokeColor, lineWidth: 10)
-                .frame(width: bigRingDiameter, height: bigRingDiameter)
-            
-            Circle().fill(colorScheme == .dark ? bigRingDarkBackgroundColor : bigRingNormalBackgroundColor)
-                .frame(width: bigRingDiameter, height: bigRingDiameter)
-        }
-    }
-}
-
-extension CGFloat {
-    func text() -> String {
-        return String(format: "%.00f", Float(self))
-    }
-}
-
-public enum JoyStickState: String {
-    case up
-    case down
-    case left
-    case right
-    case center
-}
-
-public struct IconSetting {
-    var leftIcon: Image
-    var rightIcon: Image
-    var upIcon: Image
-    var downIcon: Image
-    
-    public init(leftIcon: Image, rightIcon: Image, upIcon: Image, downIcon: Image) {
-        self.leftIcon = leftIcon
-        self.rightIcon = rightIcon
-        self.upIcon = upIcon
-        self.downIcon = downIcon
-    }
-}
-
-public struct ColorSetting {
-    var subRingColor: Color
-    var bigRingNormalBackgroundColor: Color
-    var bigRingDarkBackgroundColor: Color
-    var bigRingStrokeColor: Color
-    var iconColor: Color
-    
-    public init(subRingColor: Color = .primary,
-    bigRingNormalBackgroundColor: Color = .white,
-    bigRingDarkBackgroundColor: Color = .black,
-    bigRingStrokeColor: Color = Color.primary,
-    iconColor: Color = Color.primary) {
-        
-        self.subRingColor = subRingColor
-        self.bigRingNormalBackgroundColor = bigRingNormalBackgroundColor
-        self.bigRingDarkBackgroundColor = bigRingDarkBackgroundColor
-        self.bigRingStrokeColor = bigRingStrokeColor
-        self.iconColor = iconColor
-    }
-}
-
 public struct OMJoystick: View {
     
     var iconColor: Color
@@ -274,7 +195,7 @@ public struct OMJoystick: View {
     }
 }
 
-struct OMJoystick_Previews: PreviewProvider {
+struct OMJoystick_Previews1: PreviewProvider {
     
     static var previews: some View {
         GeometryReader { geometry in
@@ -282,7 +203,16 @@ struct OMJoystick_Previews: PreviewProvider {
                 OMJoystick(isDebug: true, colorSetting: ColorSetting(subRingColor: .red, bigRingNormalBackgroundColor: .green, bigRingDarkBackgroundColor: .blue, bigRingStrokeColor: .yellow, iconColor: .red)) { (joyStickState, stickPosition) in
                     
                 }.frame(width: geometry.size.width-40, height: geometry.size.width-40)
-                
+            }
+        }
+    }
+}
+
+struct OMJoystick_Previews2: PreviewProvider {
+    
+    static var previews: some View {
+        GeometryReader { geometry in
+            VStack(alignment: .center, spacing: 5) {
                 OMJoystick(isDebug: true,  colorSetting: ColorSetting(iconColor: .orange), smallRingRadius: 70, bigRingRadius: 120
                 ) { (joyStickState, stickPosition)  in
                     

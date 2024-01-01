@@ -9,6 +9,7 @@ import UIKit
 
 extension CGPoint {
     
+    /// Get point on circle
     func getPointOnCircle(radius: CGFloat, radian: CGFloat) -> CGPoint {
         let x = self.x + radius * cos(radian)
         let y = self.y + radius * sin(radian)
@@ -16,6 +17,7 @@ extension CGPoint {
         return CGPoint(x: x, y: y)
     }
     
+    /// Get radian from point on circle
     func getRadian(pointOnCircle: CGPoint) -> CGFloat {
         
         let originX = pointOnCircle.x - self.x
@@ -29,6 +31,7 @@ extension CGPoint {
         return radian
     }
     
+    /// Get distance from other point
     func getDistance(otherPoint: CGPoint) -> CGFloat {
         return sqrt(pow((otherPoint.x - x), 2) + pow((otherPoint.y - y), 2))
     }
