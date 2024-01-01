@@ -107,6 +107,5 @@ class OMJoystickViewModel: ObservableObject {
     func resetPosition() {
         locationX = bigRingRadius
         locationY = bigRingRadius
-        joyStickState = .center
     }
 }
