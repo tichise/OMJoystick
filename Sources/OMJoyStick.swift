@@ -27,6 +27,9 @@ struct BigRing: View {
     
     var bigRingDiameter: CGFloat
     
+    // 8等分のラインを表示するか制御する
+    @Binding var isSplitLine: Bool
+    
     var body: some View {
         ZStack {
             Circle().stroke(bigRingStrokeColor, lineWidth: 10)
@@ -34,7 +37,34 @@ struct BigRing: View {
             
             Circle().fill(colorScheme == .dark ? bigRingDarkBackgroundColor : bigRingNormalBackgroundColor)
                 .frame(width: bigRingDiameter, height: bigRingDiameter)
-        }
+            
+            if isSplitLine {
+                let radius = min(bigRingDiameter, bigRingDiameter) / 2
+                let center = CGPoint(x: bigRingDiameter / 2, y: bigRingDiameter / 2)
+                
+                 
+                    ForEach(0..<8) { i in
+                        Path { path in
+                            path.move(to: center)
+                            let angle = CGFloat(i) * .pi / 4 // 45度をラジアンに変換
+                            let endX = center.x + radius * cos(angle)
+                            let endY = center.y + radius * sin(angle)
+                            path.addLine(to: CGPoint(x: endX, y: endY))
+                        }
+                        .stroke(bigRingStrokeColor, lineWidth: 1)
+                    }
+            }
+            
+            
+
+        }.frame(width: bigRingDiameter, height: bigRingDiameter)
+    }
+}
+
+// BingRingのPreview用
+struct BigRing_Previews: PreviewProvider {
+    static var previews: some View {
+        BigRing(bigRingNormalBackgroundColor: .white, bigRingDarkBackgroundColor: .black, bigRingStrokeColor: .primary, bigRingDiameter: 100, isSplitLine: .constant(false))
     }
 }
 
@@ -101,6 +131,9 @@ public struct OMJoystick: View {
     var downIcon: Image?
     
     var isDebug = false
+    
+    // isSplitLineを宣言
+    
     
     var stickPosition: CGPoint {
         let stickPositionX = floor(locationX - bigRingRadius)
@@ -245,14 +278,17 @@ public struct OMJoystick: View {
                 leftIcon?.renderingMode(.template)
                     .foregroundColor(iconColor).padding(iconPadding)
                 
+               
                 ZStack {
+                    
                     // 中央は直径280の場合は140:140
                     BigRing(
-                        bigRingNormalBackgroundColor: bigRingNormalBackgroundColor,  bigRingDarkBackgroundColor: bigRingDarkBackgroundColor, 
-                        bigRingStrokeColor: bigRingStrokeColor,
-                        bigRingDiameter: bigRingDiameter).gesture(dragGesture)
-                    
+                                bigRingNormalBackgroundColor: bigRingNormalBackgroundColor,  bigRingDarkBackgroundColor: bigRingDarkBackgroundColor,
+                                bigRingStrokeColor: bigRingStrokeColor,
+                                bigRingDiameter: bigRingDiameter, isSplitLine: .constant(true)).gesture(dragGesture)
+
                     SmallRing(smallRingDiameter: self.smallRingDiameter, subRingColor: subRingColor).offset(x: smallRingLocationX, y: smallRingLocationY).allowsHitTesting(false)
+                     
                 }
                 
                 rightIcon?.renderingMode(.template)
@@ -262,7 +298,7 @@ public struct OMJoystick: View {
             downIcon?.renderingMode(.template)
                 .foregroundColor(iconColor).padding(iconPadding)
             
-            if isDebug {                
+            if isDebug {
                 HStack(spacing: 15) {
                     Text(joyStickState.rawValue).font(.body)
                 }
@@ -296,7 +332,7 @@ struct OMJoystick2_Previews: PreviewProvider {
         GeometryReader { geometry in
             VStack(alignment: .center, spacing: 5) {
 
-                OMJoystick(isDebug: true, colorSetting: ColorSetting(iconColor: .orange), smallRingRadius: 70, bigRingRadius: 120
+                OMJoystick(isDebug: true, colorSetting: ColorSetting(iconColor: .orange), smallRingRadius: 10, bigRingRadius: 20
                 ) { (joyStickState, stickPosition)  in
                     debugPrint(joyStickState.rawValue)
                     debugPrint(stickPosition)
@@ -306,3 +342,4 @@ struct OMJoystick2_Previews: PreviewProvider {
         }
     }
 }
+
