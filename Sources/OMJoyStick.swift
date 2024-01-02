@@ -139,9 +139,6 @@ public struct OMJoystick: View {
                     Text(viewModel.joyStickState.rawValue).font(.body)
                 }
             }
-        }.onAppear(){
-            viewModel.locationX = viewModel.bigRingRadius
-            viewModel.locationY = viewModel.bigRingRadius
         }.padding(40)
     }
 }

@@ -13,6 +13,9 @@ class OMJoystickViewModel: ObservableObject {
         self.isOctantLinesVisible = isOctantLinesVisible
         self.smallRingRadius = smallRingRadius
         self.bigRingRadius = bigRingRadius
+        
+        self.locationX = bigRingRadius
+        self.locationY = bigRingRadius
     }
     
     @Published var joyStickState: JoyStickState = .center
