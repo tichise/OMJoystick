@@ -9,10 +9,8 @@ import SwiftUI
 
 /// OMJoystickViewModel
 class OMJoystickViewModel: ObservableObject {
-    public init(isOctantLinesVisible: Bool = false, locationX: CGFloat = 0, locationY: CGFloat = 0, smallRingRadius: CGFloat, bigRingRadius: CGFloat) {
+    public init(isOctantLinesVisible: Bool = false, smallRingRadius: CGFloat, bigRingRadius: CGFloat) {
         self.isOctantLinesVisible = isOctantLinesVisible
-        self.locationX = locationX
-        self.locationY = locationY
         self.smallRingRadius = smallRingRadius
         self.bigRingRadius = bigRingRadius
     }
