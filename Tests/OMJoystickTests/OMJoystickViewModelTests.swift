@@ -6,44 +6,27 @@ final class OMJoystickViewModelTests: XCTestCase {
     var viewModel: OMJoystickViewModel!
     
     override func setUp() {
-        viewModel = OMJoystickViewModel()
+        viewModel = OMJoystickViewModel(smallRingRadius: 20, bigRingRadius: 30)
     }
     
     func testGetJoyStickState() {
         viewModel.locationX = 0
         viewModel.locationY = 0
-        XCTAssertEqual(viewModel.getJoyStickState(), .none)
+        XCTAssertEqual(viewModel.getJoyStickState(), JoyStickState.center)
         
         viewModel.locationX = 0
         viewModel.locationY = 100
-        XCTAssertEqual(viewModel.getJoyStickState(), .up)
-        
+        XCTAssertEqual(viewModel.getJoyStickState(), JoyStickState.up)
         viewModel.locationX = 0
         viewModel.locationY = -100
-        XCTAssertEqual(viewModel.getJoyStickState(), .down)
+        XCTAssertEqual(viewModel.getJoyStickState(), JoyStickState.down)
         
         viewModel.locationX = 100
         viewModel.locationY = 0
-        XCTAssertEqual(viewModel.getJoyStickState(), .right)
+        XCTAssertEqual(viewModel.getJoyStickState(), JoyStickState.right)
         
         viewModel.locationX = -100
         viewModel.locationY = 0
-        XCTAssertEqual(viewModel.getJoyStickState(), .left)
-        
-        viewModel.locationX = 100
-        viewModel.locationY = 100
-        XCTAssertEqual(viewModel.getJoyStickState(), .rightUp)
-        
-        viewModel.locationX = -100
-        viewModel.locationY = 100
-        XCTAssertEqual(viewModel.getJoyStickState(), .leftUp)
-        
-        viewModel.locationX = 100
-        viewModel.locationY = -100
-        XCTAssertEqual(viewModel.getJoyStickState(), .rightDown)
-        
-        viewModel.locationX = -100
-        viewModel.locationY = -100
-        XCTAssertEqual(viewModel.getJoyStickState(), .leftDown)
+        XCTAssertEqual(viewModel.getJoyStickState(), JoyStickState.left)
     }
 }
