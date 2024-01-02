@@ -25,8 +25,7 @@ class OMJoystickViewModel: ObservableObject {
     
     public var stickPosition: CGPoint {
         let stickPositionX = floor(locationX - bigRingRadius)
-        
-        let stickPositionY = floor((locationY - bigRingRadius) < 0 ? -1 * (locationY - bigRingRadius) : locationY - bigRingRadius)
+        let stickPositionY = floor(locationY - bigRingRadius)
                 
         return CGPoint(x: stickPositionX, y: stickPositionY)
     }
