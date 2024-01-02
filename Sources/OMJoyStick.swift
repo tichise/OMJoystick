@@ -53,7 +53,10 @@ public struct OMJoystick: View {
                     viewModel.locationY = pointOnCircle.y
                 }
                 
-                viewModel.joyStickState = viewModel.getJoyStickState()
+                // viewModel.joyStickState と getJoyStickState() が同じ値のときはjoyStickStateを更新しない
+                if viewModel.joyStickState != viewModel.getJoyStickState() {
+                    viewModel.joyStickState = viewModel.getJoyStickState()
+                }
                 
                 self.completionHandler(viewModel.joyStickState,  viewModel.stickPosition)
         }
