@@ -16,10 +16,10 @@ final class OMJoystickViewModelTests: XCTestCase {
         
         viewModel.locationX = 0
         viewModel.locationY = 100
-        XCTAssertEqual(viewModel.getJoyStickState(), JoyStickState.up)
+        XCTAssertEqual(viewModel.getJoyStickState(), JoyStickState.down)
         viewModel.locationX = 0
         viewModel.locationY = -100
-        XCTAssertEqual(viewModel.getJoyStickState(), JoyStickState.down)
+        XCTAssertEqual(viewModel.getJoyStickState(), JoyStickState.up)
         
         viewModel.locationX = 100
         viewModel.locationY = 0
