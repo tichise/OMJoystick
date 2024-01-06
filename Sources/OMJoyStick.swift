@@ -146,8 +146,8 @@ public struct OMJoystick: View {
         
         self.completionHandler = completionHandler
         
-        self.viewModel = OMJoystickViewModel()
-        self.viewModel.isOctantLinesVisible = isOctantLinesVisible
+        // ViewModelの初期化
+        self.viewModel = OMJoystickViewModel(isOctantLinesVisible: isOctantLinesVisible)
     }
     
     public var body: some View {
