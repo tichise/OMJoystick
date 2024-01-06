@@ -14,4 +14,8 @@ public enum JoyStickState: String {
     case left
     case right
     case center
+    case leftUp
+    case leftDown
+    case rightUp
+    case rightDown
 }

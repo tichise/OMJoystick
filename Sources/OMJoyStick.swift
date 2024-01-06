@@ -66,16 +66,32 @@ public struct OMJoystick: View {
         return locationY - bigRingRadius
     }
     
-    func getJoyStickState() -> JoyStickState {
+    func getJoyStickState(isOctantLinesVisible: Bool) -> JoyStickState {
         var state: JoyStickState = .center
         
         let xValue = locationX - bigRingRadius
         let yValue = locationY - bigRingRadius
-        
-        if (abs(xValue) > abs(yValue)) {
-            state = xValue < 0 ? .left : .right
-        } else if (abs(yValue) > abs(xValue)) {
-            state = yValue < 0 ? .up : .down
+
+        if isOctantLinesVisible {
+            // 8等分の場合
+                if abs(xValue) > abs(yValue) {
+                    state = xValue < 0 ? .left : .right
+                    if abs(yValue) > bigRingRadius / 2 {
+                        state = xValue < 0 ? (yValue < 0 ? .leftUp : .leftDown) : (yValue < 0 ? .rightUp : .rightDown)
+                    }
+                } else {
+                    state = yValue < 0 ? .up : .down
+                    if abs(xValue) > bigRingRadius / 2 {
+                        state = yValue < 0 ? (xValue < 0 ? .leftUp : .rightUp) : (xValue < 0 ? .leftDown : .rightDown)
+                    }
+                }
+        } else {
+            // 4等分の場合
+            if (abs(xValue) > abs(yValue)) {
+                state = xValue < 0 ? .left : .right
+            } else if (abs(yValue) > abs(xValue)) {
+                state = yValue < 0 ? .up : .down
+            }
         }
         
         return state
@@ -105,7 +121,7 @@ public struct OMJoystick: View {
                     self.locationY = pointOnCircle.y
                 }
                 
-                self.joyStickState = self.getJoyStickState()
+                self.joyStickState = self.getJoyStickState(isOctantLinesVisible: viewModel.isOctantLinesVisible)
                 
                 self.completionHandler(self.joyStickState,  self.stickPosition)
         }
@@ -219,7 +235,7 @@ struct OMJoystick_Previews2: PreviewProvider {
     static var previews: some View {
         GeometryReader { geometry in
             VStack(alignment: .center, spacing: 5) {
-                OMJoystick(isDebug: true,  colorSetting: ColorSetting(iconColor: .orange), smallRingRadius: 70, bigRingRadius: 120, isOctantLinesVisible: true
+                OMJoystick(isDebug: true,  colorSetting: ColorSetting(iconColor: .orange), smallRingRadius: 30, bigRingRadius: 120, isOctantLinesVisible: true
                 ) { (joyStickState, stickPosition)  in
                     
                 }.frame(width: geometry.size.width-40, height: geometry.size.width-40)
