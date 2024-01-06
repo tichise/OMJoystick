@@ -66,37 +66,6 @@ public struct OMJoystick: View {
         return locationY - bigRingRadius
     }
     
-    func getJoyStickState(isOctantLinesVisible: Bool) -> JoyStickState {
-        var state: JoyStickState = .center
-        
-        let xValue = locationX - bigRingRadius
-        let yValue = locationY - bigRingRadius
-
-        if isOctantLinesVisible {
-            // 8等分の場合
-                if abs(xValue) > abs(yValue) {
-                    state = xValue < 0 ? .left : .right
-                    if abs(yValue) > bigRingRadius / 2 {
-                        state = xValue < 0 ? (yValue < 0 ? .leftUp : .leftDown) : (yValue < 0 ? .rightUp : .rightDown)
-                    }
-                } else {
-                    state = yValue < 0 ? .up : .down
-                    if abs(xValue) > bigRingRadius / 2 {
-                        state = yValue < 0 ? (xValue < 0 ? .leftUp : .rightUp) : (xValue < 0 ? .leftDown : .rightDown)
-                    }
-                }
-        } else {
-            // 4等分の場合
-            if (abs(xValue) > abs(yValue)) {
-                state = xValue < 0 ? .left : .right
-            } else if (abs(yValue) > abs(xValue)) {
-                state = yValue < 0 ? .up : .down
-            }
-        }
-        
-        return state
-    }
-    
     var dragGesture: some Gesture {
         // minimumDistanceが1以上だとタッチイベントを一切拾わない
         DragGesture(minimumDistance: 0)
@@ -121,7 +90,12 @@ public struct OMJoystick: View {
                     self.locationY = pointOnCircle.y
                 }
                 
-                self.joyStickState = self.getJoyStickState(isOctantLinesVisible: viewModel.isOctantLinesVisible)
+                self.joyStickState = JoyStickStateCalculator.getJoyStickState(
+                    locationX: self.locationX,
+                    locationY: self.locationY,
+                    bigRingRadius: self.bigRingRadius,
+                    isOctantLinesVisible: viewModel.isOctantLinesVisible
+                )
                 
                 self.completionHandler(self.joyStickState,  self.stickPosition)
         }
