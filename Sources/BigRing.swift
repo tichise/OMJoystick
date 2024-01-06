@@ -31,11 +31,12 @@ struct BigRing: View {
                 let radius = min(bigRingDiameter, bigRingDiameter) / 2
                 let center = CGPoint(x: bigRingDiameter / 2, y: bigRingDiameter / 2)
                 
+                    let additionalAngle = Double.pi / 8 // 線の開始位置を調整
                  
                     ForEach(0..<8) { i in
                         Path { path in
                             path.move(to: center)
-                            let angle = CGFloat(i) * .pi / 4 // 45度をラジアンに変換
+                            let angle = CGFloat(i) * .pi / 4 + additionalAngle
                             let endX = center.x + radius * cos(angle)
                             let endY = center.y + radius * sin(angle)
                             path.addLine(to: CGPoint(x: endX, y: endY))
