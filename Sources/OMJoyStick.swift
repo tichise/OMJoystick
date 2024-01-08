@@ -97,9 +97,12 @@ public struct OMJoystick: View {
                 
                 let strength = JoyStickStateCalculator.getStrength(stickPosition: stickPosition)
                 
+                // 角度を取得
+                let angle = JoyStickStateCalculator.getAngle(stickPosition: stickPosition)
+                
                 if viewModel.isOctantLinesVisible {
                     // 八等分の場合
-                    self.joyStickState = JoyStickStateCalculator.getJoyStickStateOctant(stickPosition: self.stickPosition,
+                    self.joyStickState = JoyStickStateCalculator.getJoyStickStateOctant(angle: angle,
                         stength: strength
                     )
                 } else {
