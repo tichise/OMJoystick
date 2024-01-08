@@ -16,12 +16,6 @@ final class JoyStickStateCalculatorUnitTest: XCTestCase {
     override func tearDownWithError() throws {
     }
 
-    func testGetJoyStickStateOctant() {
-    }
-    
-    func testGetJoyStickStateQuadrant() {
-    }
-
     func testDistanceFromOrigin() {
         XCTAssertEqual(JoyStickStateCalculator.getDistanceFromOrigin(stickPosition: CGPoint(x: 0, y: 0)), 0)
         XCTAssertEqual(JoyStickStateCalculator.getDistanceFromOrigin(stickPosition: CGPoint(x: 100, y: 0)), 100)

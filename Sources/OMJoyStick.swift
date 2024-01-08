@@ -108,8 +108,8 @@ public struct OMJoystick: View {
                     )
                 } else {
                     // 四等分の場合
-                    self.joyStickState = JoyStickStateCalculator.getJoyStickStateQuadrant(stickPosition: self.stickPosition,
-                        stength: distanceFromOrigin
+                    self.joyStickState = JoyStickStateCalculator.getJoyStickStateQuadrant(angle: angle,
+                        distanceFromOrigin: distanceFromOrigin
                     )
                 }
                 

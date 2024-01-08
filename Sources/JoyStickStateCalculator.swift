@@ -42,19 +42,20 @@ class JoyStickStateCalculator {
     /// 四等分ジョイスティックの状態を取得する
     /// - Parameters:
     /// - stickPosition: ジョイスティックの位置
-    /// - stength: ジョイスティックの強さ
+    /// - distanceFromOrigin: ジョイスティックの強さ
     /// - Returns: JoyStickState
-    static func getJoyStickStateQuadrant(stickPosition: CGPoint, stength: Int) -> JoyStickState {
+    static func getJoyStickStateQuadrant(angle: CGFloat, distanceFromOrigin: Int) -> JoyStickState {
         var state: JoyStickState = .center
         
-        let xValue = stickPosition.x
-        let yValue = stickPosition.y
-
         // 4等分の場合
-        if (abs(xValue) > abs(yValue)) {
-            state = xValue < 0 ? .left : .right
-        } else if (abs(yValue) > abs(xValue)) {
-            state = yValue < 0 ? .down : .up
+        if (angle >= 315 || angle < 45) {
+            state = .up
+        } else if (angle >= 45 && angle < 135) {
+            state = .right
+        } else if (angle >= 135 && angle < 225) {
+            state = .down
+        } else if (angle >= 225 && angle < 315) {
+            state = .left
         }
         
         return state
