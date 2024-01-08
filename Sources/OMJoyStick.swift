@@ -219,7 +219,7 @@ struct OMJoystick_Previews1: PreviewProvider {
                     
                 }.frame(width: geometry.size.width-40, height: geometry.size.width-40)
             }
-        }
+        }.padding(.top, 50)
     }
 }
 
@@ -234,5 +234,6 @@ struct OMJoystick_Previews2: PreviewProvider {
                 }.frame(width: geometry.size.width-40, height: geometry.size.width-40)
             }
         }
+        .padding(.top, 50.0)
     }
 }
