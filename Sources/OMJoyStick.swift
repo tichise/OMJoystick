@@ -51,14 +51,6 @@ public struct OMJoystick: View {
     
     let iconPadding: CGFloat = 10
     
-    var smallRingDiameter: CGFloat {
-        return smallRingRadius*2
-    }
-    
-    var bigRingDiameter: CGFloat {
-        return bigRingRadius*2
-    }
-    
     var smallRingRadius: CGFloat
     var bigRingRadius: CGFloat
     
@@ -170,9 +162,9 @@ public struct OMJoystick: View {
                     BigRing(
                         bigRingNormalBackgroundColor: bigRingNormalBackgroundColor,  bigRingDarkBackgroundColor: bigRingDarkBackgroundColor, 
                         bigRingStrokeColor: bigRingStrokeColor,
-                        bigRingDiameter: bigRingDiameter).environmentObject(viewModel).gesture(dragGesture)
+                        bigRingDiameter: bigRingRadius*2).environmentObject(viewModel).gesture(dragGesture)
                     
-                    SmallRing(smallRingDiameter: self.smallRingDiameter, subRingColor: subRingColor).offset(x: smallRingLocationX, y: smallRingLocationY).environmentObject(viewModel).allowsHitTesting(false)
+                    SmallRing(smallRingDiameter: smallRingRadius*2, subRingColor: subRingColor).offset(x: smallRingLocationX, y: smallRingLocationY).environmentObject(viewModel).allowsHitTesting(false)
                 }
                 
                 rightIcon?.renderingMode(.template)
