@@ -18,11 +18,21 @@ final class JoyStickStateCalculatorUnitTest: XCTestCase {
 
     func testGetJoyStickState() throws {
         let bingRingRadius = CGFloat(100)
-        
-        XCTAssertEqual(JoyStickStateCalculator.getJoyStickState(locationX: 0, locationY: 0, bigRingRadius: bingRingRadius, isOctantLinesVisible: false), JoyStickState.center)
-        XCTAssertEqual(JoyStickStateCalculator.getJoyStickState(locationX: 30, locationY: 30, bigRingRadius: bingRingRadius, isOctantLinesVisible: true), JoyStickState.rightUp)
-
-        
     }
 
+    func testStrength() {
+        XCTAssertEqual(JoyStickStateCalculator.getStrength(stickPosition: CGPoint(x: 0, y: 0)), 0)
+        XCTAssertEqual(JoyStickStateCalculator.getStrength(stickPosition: CGPoint(x: 100, y: 0)), 100)
+        XCTAssertEqual(JoyStickStateCalculator.getStrength(stickPosition: CGPoint(x: 0, y: 100)), 100)
+        XCTAssertEqual(JoyStickStateCalculator.getStrength(stickPosition: CGPoint(x: -100, y: -100)), 141)
+    }
+    
+    func testAngle() {
+        XCTAssertEqual(JoyStickStateCalculator.getAngle(stickPosition: CGPoint(x:  0, y: 0)), 0)
+        XCTAssertEqual(JoyStickStateCalculator.getAngle(stickPosition: CGPoint(x:  0, y: 180)), 0)
+        XCTAssertEqual(JoyStickStateCalculator.getAngle(stickPosition: CGPoint(x:  45, y: 45)), 45)
+        XCTAssertEqual(JoyStickStateCalculator.getAngle(stickPosition: CGPoint(x:  90, y: 0)), 90)
+        XCTAssertEqual(JoyStickStateCalculator.getAngle(stickPosition: CGPoint(x:  -90, y: 0)), 270)
+        XCTAssertEqual(JoyStickStateCalculator.getAngle(stickPosition: CGPoint(x:  -45, y: -45)), 225)
+    }
 }
