@@ -52,7 +52,7 @@ class JoyStickStateCalculator {
         if (abs(xValue) > abs(yValue)) {
             state = xValue < 0 ? .left : .right
         } else if (abs(yValue) > abs(xValue)) {
-            state = yValue < 0 ? .up : .down
+            state = yValue < 0 ? .down : .up
         }
         
         return state
