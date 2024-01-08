@@ -31,21 +31,19 @@ struct BigRing: View {
                 let radius = min(bigRingDiameter, bigRingDiameter) / 2
                 let center = CGPoint(x: bigRingDiameter / 2, y: bigRingDiameter / 2)
                 
-                 
-                    ForEach(0..<8) { i in
-                        Path { path in
-                            path.move(to: center)
-                            let angle = CGFloat(i) * .pi / 4 // 45度をラジアンに変換
-                            let endX = center.x + radius * cos(angle)
-                            let endY = center.y + radius * sin(angle)
-                            path.addLine(to: CGPoint(x: endX, y: endY))
-                        }
-                        .stroke(bigRingStrokeColor, lineWidth: 1)
+                let additionalAngle = Double.pi / 8 // 線の開始位置を調整
+             
+                ForEach(0..<8) { i in
+                    Path { path in
+                        path.move(to: center)
+                        let angle = CGFloat(i) * .pi / 4 + additionalAngle
+                        let endX = center.x + radius * cos(angle)
+                        let endY = center.y + radius * sin(angle)
+                        path.addLine(to: CGPoint(x: endX, y: endY))
                     }
+                    .stroke(bigRingStrokeColor, lineWidth: 1)
+                }
             }
-            
-            
-
         }.frame(width: bigRingDiameter, height: bigRingDiameter)
     }
 }
@@ -53,6 +51,10 @@ struct BigRing: View {
 // BingRingのPreview用
 struct BigRing_Previews: PreviewProvider {
     static var previews: some View {
-        BigRing(bigRingNormalBackgroundColor: .white, bigRingDarkBackgroundColor: .black, bigRingStrokeColor: .primary, bigRingDiameter: 100)
+        BigRing(bigRingNormalBackgroundColor: .white, bigRingDarkBackgroundColor: .black, bigRingStrokeColor: .primary, bigRingDiameter: 120).environmentObject(OMJoystickViewModel(isOctantLinesVisible: true))
+        
+        BigRing(bigRingNormalBackgroundColor: .white, bigRingDarkBackgroundColor: .gray, bigRingStrokeColor: .red, bigRingDiameter: 220).environmentObject(OMJoystickViewModel(isOctantLinesVisible: true))
+        
+        BigRing(bigRingNormalBackgroundColor: .white, bigRingDarkBackgroundColor: .black, bigRingStrokeColor: .primary, bigRingDiameter: 120).environmentObject(OMJoystickViewModel(isOctantLinesVisible: false))
     }
 }

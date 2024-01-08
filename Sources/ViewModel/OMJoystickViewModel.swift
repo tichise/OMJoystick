@@ -10,5 +10,9 @@ import SwiftUI
 /// OMJoystickViewModel
 class OMJoystickViewModel: ObservableObject {
     // 8等分のラインを表示するか制御する
-    public var isOctantLinesVisible: Bool = false
+    public var isOctantLinesVisible: Bool
+    
+    public init(isOctantLinesVisible: Bool = false) {
+        self.isOctantLinesVisible = isOctantLinesVisible
+    }
 }

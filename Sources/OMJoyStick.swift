@@ -17,7 +17,6 @@ public struct OMJoystick: View {
     var bigRingNormalBackgroundColor: Color
     var bigRingDarkBackgroundColor: Color
     var bigRingStrokeColor: Color
-
     var leftIcon: Image?
     var rightIcon: Image?
     var upIcon: Image?
@@ -29,15 +28,20 @@ public struct OMJoystick: View {
         let stickPositionX = floor(locationX - bigRingRadius)
         
         // 上をY軸プラスにするためにマイナスをかける
-        let stickPositionY = floor(locationY - bigRingRadius) * -1
-                
+        var stickPositionY = floor(locationY - bigRingRadius) * -1
+        
+        // stickPositionYが-0の場合は-を消す
+        if (stickPositionY == -0) {
+            stickPositionY = 0
+        }
+        
         return CGPoint(x: stickPositionX, y: stickPositionY)
     }
     
     @State private var joyStickState: JoyStickState = .center
     
-    public var completionHandler: ((_ joyStickState: JoyStickState, _ stickPosition: CGPoint) -> Void)
-        
+    public var completionHandler: ((_ joyStickState: JoyStickState, _ stickPosition: CGPoint, _ angle: CGFloat?, _ distanceFromOrigin: Int) -> Void)
+    
     var org: CGPoint {
         return CGPoint(x: self.bigRingRadius, y: self.bigRingRadius)
     }
@@ -66,21 +70,6 @@ public struct OMJoystick: View {
         return locationY - bigRingRadius
     }
     
-    func getJoyStickState() -> JoyStickState {
-        var state: JoyStickState = .center
-        
-        let xValue = locationX - bigRingRadius
-        let yValue = locationY - bigRingRadius
-        
-        if (abs(xValue) > abs(yValue)) {
-            state = xValue < 0 ? .left : .right
-        } else if (abs(yValue) > abs(xValue)) {
-            state = yValue < 0 ? .up : .down
-        }
-        
-        return state
-    }
-    
     var dragGesture: some Gesture {
         // minimumDistanceが1以上だとタッチイベントを一切拾わない
         DragGesture(minimumDistance: 0)
@@ -105,26 +94,42 @@ public struct OMJoystick: View {
                     self.locationY = pointOnCircle.y
                 }
                 
-                self.joyStickState = self.getJoyStickState()
+                // 原点からの距離を取得
+                let distanceFromOrigin = JoyStickStateCalculator.getDistanceFromOrigin(stickPosition: stickPosition)
                 
-                self.completionHandler(self.joyStickState,  self.stickPosition)
+                // 角度を取得
+                let angle = JoyStickStateCalculator.getAngle(stickPosition: stickPosition)
+                
+                if viewModel.isOctantLinesVisible {
+                    // 八等分の場合
+                    self.joyStickState = JoyStickStateCalculator.getJoyStickStateOctant(angle: angle,
+                        stength: distanceFromOrigin
+                    )
+                } else {
+                    // 四等分の場合
+                    self.joyStickState = JoyStickStateCalculator.getJoyStickStateQuadrant(angle: angle,
+                        distanceFromOrigin: distanceFromOrigin
+                    )
+                }
+                
+                self.completionHandler(self.joyStickState,  self.stickPosition, angle, distanceFromOrigin)
         }
         .onEnded{ value in
-            self.locationX = self.bigRingDiameter/2
-            self.locationY = self.bigRingDiameter/2
-            
+
             self.locationX = self.bigRingRadius
             self.locationY = self.bigRingRadius
             
             self.joyStickState = .center
+            let angle: CGFloat? = nil
+            let discanceFromOrigin = 0
             
-            self.completionHandler(self.joyStickState,  self.stickPosition)
+            self.completionHandler(self.joyStickState,  self.stickPosition, angle, discanceFromOrigin)
         }
     }
     
     
     public init(isDebug: Bool = false, iconSetting: IconSetting? = nil, colorSetting: ColorSetting, smallRingRadius: CGFloat = 50, bigRingRadius: CGFloat = 140, isOctantLinesVisible: Bool = false,
-        completionHandler: @escaping ((_ joyStickState: JoyStickState, _ stickPosition: CGPoint) -> Void)) {
+        completionHandler: @escaping ((_ joyStickState: JoyStickState, _ stickPosition: CGPoint, _ angle: CGFloat?, _ distanceFromOrigin: Int) -> Void)) {
         
         self.isDebug = isDebug
         
@@ -146,25 +151,13 @@ public struct OMJoystick: View {
         
         self.completionHandler = completionHandler
         
-        self.viewModel = OMJoystickViewModel()
-        self.viewModel.isOctantLinesVisible = isOctantLinesVisible
+        // ViewModelの初期化
+        self.viewModel = OMJoystickViewModel(isOctantLinesVisible: isOctantLinesVisible)
     }
     
     public var body: some View {
         
         VStack {
-            if isDebug {
-                VStack {
-                    HStack(spacing: 15) {
-                        Text(stickPosition.x.text()).font(.body)
-                        Text(":").font(.body)
-                        
-                        Text(stickPosition.y.text()).font(.body)
-                    }
-                    
-                }.padding(10)
-            }
-            
             upIcon?.renderingMode(.template)
                 .foregroundColor(iconColor).padding(iconPadding)
             
@@ -190,8 +183,25 @@ public struct OMJoystick: View {
                 .foregroundColor(iconColor).padding(iconPadding)
             
             if isDebug {                
-                HStack(spacing: 15) {
-                    Text(joyStickState.rawValue).font(.body)
+                VStack(spacing: 5) {
+                    HStack() {
+                        Text("StickPosition:").font(.body)
+                        Text(stickPosition.x.text()).font(.body)
+                        Text(":").font(.body)
+                        Text(stickPosition.y.text()).font(.body)
+                    }
+                    HStack {
+                        Text("JoyStickState:").font(.body)
+                        Text(joyStickState.rawValue).font(.body)
+                    }
+                    HStack {
+                        Text("DistanceFromOrigin:").font(.body)
+                        Text(String(JoyStickStateCalculator.getDistanceFromOrigin(stickPosition: stickPosition))).font(.body)
+                    }
+                    HStack {
+                        Text("Angle:").font(.body)
+                        Text(JoyStickStateCalculator.getAngle(stickPosition: stickPosition).text()).font(.body)
+                    }
                 }
             }
         }.onAppear(){
@@ -206,11 +216,11 @@ struct OMJoystick_Previews1: PreviewProvider {
     static var previews: some View {
         GeometryReader { geometry in
             VStack(alignment: .center, spacing: 5) {
-                OMJoystick(isDebug: true, colorSetting: ColorSetting(subRingColor: .red, bigRingNormalBackgroundColor: .green, bigRingDarkBackgroundColor: .blue, bigRingStrokeColor: .yellow, iconColor: .red)) { (joyStickState, stickPosition) in
+                OMJoystick(isDebug: true, colorSetting: ColorSetting(subRingColor: .red, bigRingNormalBackgroundColor: .green, bigRingDarkBackgroundColor: .blue, bigRingStrokeColor: .yellow, iconColor: .red)) { (joyStickState, stickPosition, angle, distanceFromOrigin) in
                     
                 }.frame(width: geometry.size.width-40, height: geometry.size.width-40)
             }
-        }
+        }.padding(.top, 50)
     }
 }
 
@@ -219,11 +229,12 @@ struct OMJoystick_Previews2: PreviewProvider {
     static var previews: some View {
         GeometryReader { geometry in
             VStack(alignment: .center, spacing: 5) {
-                OMJoystick(isDebug: true,  colorSetting: ColorSetting(iconColor: .orange), smallRingRadius: 70, bigRingRadius: 120
-                ) { (joyStickState, stickPosition)  in
-                    
+                OMJoystick(isDebug: true,  colorSetting: ColorSetting(iconColor: .orange), smallRingRadius: 30, bigRingRadius: 120, isOctantLinesVisible: true
+                ) { (joyStickState, stickPosition, angle, distanceFromOrigin)  in
+
                 }.frame(width: geometry.size.width-40, height: geometry.size.width-40)
             }
         }
+        .padding(.top, 50.0)
     }
 }
