@@ -9,29 +9,12 @@ import Foundation
 
 class JoyStickStateCalculator {
     
-    /// locationXとlocationYをもとにangleを返す
-    /// - Parameters:
-    /// - locationX: ジョイスティックのX座標
-    /// - locationY: ジョイスティックのY座標
-    /// - Returns: 角度
-    /// - Note: 角度はラジアンで返す
-    /// - Note: 0度は上方向で、時計回りに増加する
-    /// - Note: 8等分の場合は、0, 45, 90, 135, 180, 225, 270, 315, 360度のいずれかになる
-    /// - Note: 8等分の場合は、角度を45度ずつずらす
-    /// - Note: 8等分の場合は、45度ずつずらすための値を返す
-    static func getAngle(locationX: CGFloat, locationY: CGFloat) -> CGFloat {
-        // atan2を使用して角度を計算
-        let angle = atan2(locationX, locationY)
-        
-        return angle
-    }
-
     /// 八等分ジョイスティックの状態を取得する
     /// - Parameters:
     /// - stickPosition: ジョイスティックの位置
     /// - stength: ジョイスティックの強さ
     /// - Returns: JoyStickState
-    static func getJoyStickStateOctant(stickPosition: CGPoint, stength: CGFloat) -> JoyStickState {
+    static func getJoyStickStateOctant(stickPosition: CGPoint, stength: Int) -> JoyStickState {
         var state: JoyStickState = .center
                 
         return state
@@ -42,7 +25,7 @@ class JoyStickStateCalculator {
     /// - stickPosition: ジョイスティックの位置
     /// - stength: ジョイスティックの強さ
     /// - Returns: JoyStickState
-    static func getJoyStickStateQuadrant(stickPosition: CGPoint, stength: CGFloat) -> JoyStickState {
+    static func getJoyStickStateQuadrant(stickPosition: CGPoint, stength: Int) -> JoyStickState {
         var state: JoyStickState = .center
         
         let xValue = stickPosition.x
@@ -59,8 +42,9 @@ class JoyStickStateCalculator {
     }
     
     // strengthをメソッドにした
-    public static func getStrength(stickPosition: CGPoint) -> CGFloat {
-        return sqrt(stickPosition.x * stickPosition.x + stickPosition.y * stickPosition.y)
+    public static func getStrength(stickPosition: CGPoint) -> Int {
+        let result = sqrt(stickPosition.x * stickPosition.x + stickPosition.y * stickPosition.y)
+        return Int(result)
     }
     
     // angleをメソッドにした
