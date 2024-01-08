@@ -109,6 +109,12 @@ public struct OMJoystick: View {
             if isDebug {                
                 VStack(spacing: 5) {
                     HStack() {
+                        Text("LocationXY:").font(.body)
+                        Text(viewModel.locationX.text()).font(.body)
+                        Text(":").font(.body)
+                        Text(viewModel.locationY.text()).font(.body)
+                    }
+                    HStack() {
                         Text("StickPosition:").font(.body)
                         Text(viewModel.stickPosition.x.text()).font(.body)
                         Text(":").font(.body)
@@ -128,8 +134,6 @@ public struct OMJoystick: View {
                     }
                 }
             }
-        }.onAppear(){
-            viewModel.onAppear()
         }.padding(40)
     }
 }

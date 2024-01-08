@@ -16,15 +16,19 @@ class OMJoystickViewModel: ObservableObject {
         self.isOctantLinesVisible = isOctantLinesVisible
         self.smallRingRadius = smallRingRadius
         self.bigRingRadius = bigRingRadius
+        
+        self.locationX = bigRingRadius
+        self.locationY = bigRingRadius
+        self.joyStickState = .center
     }
     
     @Published public var joyStickState: JoyStickState = .center
-
-    @Published var locationX: CGFloat = 0
-    @Published var locationY: CGFloat = 0
     
     var smallRingRadius: CGFloat
     var bigRingRadius: CGFloat
+    
+    @Published var locationX: CGFloat = 0
+    @Published var locationY: CGFloat = 0
     
     var smallRingLocationX: CGFloat {
         return locationX - bigRingRadius
@@ -50,12 +54,6 @@ class OMJoystickViewModel: ObservableObject {
     
     var org: CGPoint {
         return CGPoint(x: self.bigRingRadius, y: self.bigRingRadius)
-    }
-
-    // OMJoyStickでonAppearした時に実行する処理
-    func onAppear() {
-        self.locationX = bigRingRadius
-        self.locationY = bigRingRadius
     }
     
     // DragChangeでonChangedした時に実行する処理
