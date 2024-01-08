@@ -20,11 +20,11 @@ final class JoyStickStateCalculatorUnitTest: XCTestCase {
         let bingRingRadius = CGFloat(100)
     }
 
-    func testStrength() {
-        XCTAssertEqual(JoyStickStateCalculator.getStrength(stickPosition: CGPoint(x: 0, y: 0)), 0)
-        XCTAssertEqual(JoyStickStateCalculator.getStrength(stickPosition: CGPoint(x: 100, y: 0)), 100)
-        XCTAssertEqual(JoyStickStateCalculator.getStrength(stickPosition: CGPoint(x: 0, y: 100)), 100)
-        XCTAssertEqual(JoyStickStateCalculator.getStrength(stickPosition: CGPoint(x: -100, y: -100)), 141)
+    func testDistanceFromOrigin() {
+        XCTAssertEqual(JoyStickStateCalculator.getDistanceFromOrigin(stickPosition: CGPoint(x: 0, y: 0)), 0)
+        XCTAssertEqual(JoyStickStateCalculator.getDistanceFromOrigin(stickPosition: CGPoint(x: 100, y: 0)), 100)
+        XCTAssertEqual(JoyStickStateCalculator.getDistanceFromOrigin(stickPosition: CGPoint(x: 0, y: 100)), 100)
+        XCTAssertEqual(JoyStickStateCalculator.getDistanceFromOrigin(stickPosition: CGPoint(x: -100, y: -100)), 141)
     }
     
     func testAngle() {

@@ -42,7 +42,7 @@ class JoyStickStateCalculator {
     }
     
     // 原点からの距離を取得
-    public static func getStrength(stickPosition: CGPoint) -> Int {
+    public static func getDistanceFromOrigin(stickPosition: CGPoint) -> Int {
         let result = sqrt(stickPosition.x * stickPosition.x + stickPosition.y * stickPosition.y)
         return Int(result)
     }

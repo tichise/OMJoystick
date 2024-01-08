@@ -95,7 +95,8 @@ public struct OMJoystick: View {
                     self.locationY = pointOnCircle.y
                 }
                 
-                let strength = JoyStickStateCalculator.getStrength(stickPosition: stickPosition)
+                // 原点からの距離を取得
+                let distanceFromOrigin = JoyStickStateCalculator.getDistanceFromOrigin(stickPosition: stickPosition)
                 
                 // 角度を取得
                 let angle = JoyStickStateCalculator.getAngle(stickPosition: stickPosition)
@@ -103,12 +104,12 @@ public struct OMJoystick: View {
                 if viewModel.isOctantLinesVisible {
                     // 八等分の場合
                     self.joyStickState = JoyStickStateCalculator.getJoyStickStateOctant(angle: angle,
-                        stength: strength
+                        stength: distanceFromOrigin
                     )
                 } else {
                     // 四等分の場合
                     self.joyStickState = JoyStickStateCalculator.getJoyStickStateQuadrant(stickPosition: self.stickPosition,
-                        stength: strength
+                        stength: distanceFromOrigin
                     )
                 }
                 
@@ -193,8 +194,8 @@ public struct OMJoystick: View {
                         Text(joyStickState.rawValue).font(.body)
                     }
                     HStack {
-                        Text("Strength:").font(.body)
-                        Text(String(JoyStickStateCalculator.getStrength(stickPosition: stickPosition))).font(.body)
+                        Text("DistanceFromOrigin:").font(.body)
+                        Text(String(JoyStickStateCalculator.getDistanceFromOrigin(stickPosition: stickPosition))).font(.body)
                     }
                     HStack {
                         Text("Angle:").font(.body)
