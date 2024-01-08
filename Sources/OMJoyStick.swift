@@ -17,7 +17,7 @@ public struct OMJoystick: View {
     var bigRingNormalBackgroundColor: Color
     var bigRingDarkBackgroundColor: Color
     var bigRingStrokeColor: Color
-
+    
     var leftIcon: Image?
     var rightIcon: Image?
     var upIcon: Image?
@@ -119,9 +119,7 @@ public struct OMJoystick: View {
                 self.completionHandler(self.joyStickState,  self.stickPosition)
         }
         .onEnded{ value in
-            self.locationX = self.bigRingDiameter/2
-            self.locationY = self.bigRingDiameter/2
-            
+
             self.locationX = self.bigRingRadius
             self.locationY = self.bigRingRadius
             
