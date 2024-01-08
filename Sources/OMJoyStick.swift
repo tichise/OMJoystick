@@ -109,12 +109,17 @@ public struct OMJoystick: View {
                     self.locationY = pointOnCircle.y
                 }
                 
-                self.joyStickState = JoyStickStateCalculator.getJoyStickState(
-                    locationX: self.locationX,
-                    locationY: self.locationY,
-                    bigRingRadius: self.bigRingRadius,
-                    isOctantLinesVisible: viewModel.isOctantLinesVisible
-                )
+                if viewModel.isOctantLinesVisible {
+                    // 八等分の場合
+                    self.joyStickState = JoyStickStateCalculator.getJoyStickStateOctant(stickPosition: self.stickPosition,
+                        stength: self.strength
+                    )
+                } else {
+                    // 四等分の場合
+                    self.joyStickState = JoyStickStateCalculator.getJoyStickStateQuadrant(stickPosition: self.stickPosition,
+                        stength: self.strength
+                    )
+                }
                 
                 self.completionHandler(self.joyStickState,  self.stickPosition)
         }
