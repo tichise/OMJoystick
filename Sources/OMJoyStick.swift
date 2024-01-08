@@ -29,7 +29,12 @@ public struct OMJoystick: View {
         let stickPositionX = floor(locationX - bigRingRadius)
         
         // 上をY軸プラスにするためにマイナスをかける
-        let stickPositionY = floor(locationY - bigRingRadius) * -1
+        var stickPositionY = floor(locationY - bigRingRadius) * -1
+        
+        // stickPositionYが-0の場合は-を消す
+        if (stickPositionY == -0) {
+            stickPositionY = 0
+        }
         
         return CGPoint(x: stickPositionX, y: stickPositionY)
     }
@@ -165,18 +170,6 @@ public struct OMJoystick: View {
     public var body: some View {
         
         VStack {
-            if isDebug {
-                VStack {
-                    HStack(spacing: 15) {
-                        Text(stickPosition.x.text()).font(.body)
-                        Text(":").font(.body)
-                        
-                        Text(stickPosition.y.text()).font(.body)
-                    }
-                    
-                }.padding(10)
-            }
-            
             upIcon?.renderingMode(.template)
                 .foregroundColor(iconColor).padding(iconPadding)
             
@@ -202,13 +195,25 @@ public struct OMJoystick: View {
                 .foregroundColor(iconColor).padding(iconPadding)
             
             if isDebug {                
-                HStack(spacing: 15) {
-                    Text(joyStickState.rawValue).font(.body)
-                    // angleを表示する
-                    Text(angle.text()).font(.body)
-                    // strengthを表示する
-                    Text(strength.text()).font(.body)
-
+                VStack(spacing: 5) {
+                    HStack() {
+                        Text("StickPosition:").font(.body)
+                        Text(stickPosition.x.text()).font(.body)
+                        Text(":").font(.body)
+                        Text(stickPosition.y.text()).font(.body)
+                    }
+                    HStack {
+                        Text("JoyStickState:").font(.body)
+                        Text(joyStickState.rawValue).font(.body)
+                    }
+                    HStack {
+                        Text("Strength:").font(.body)
+                        Text(strength.text()).font(.body)
+                    }
+                    HStack {
+                        Text("Angle:").font(.body)
+                        Text(angle.text()).font(.body)
+                    }
                 }
             }
         }.onAppear(){
