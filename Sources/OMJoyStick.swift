@@ -30,14 +30,14 @@ public struct OMJoystick: View {
         
         // 上をY軸プラスにするためにマイナスをかける
         let stickPositionY = floor(locationY - bigRingRadius) * -1
-                
+        
         return CGPoint(x: stickPositionX, y: stickPositionY)
     }
     
     @State private var joyStickState: JoyStickState = .center
     
     public var completionHandler: ((_ joyStickState: JoyStickState, _ stickPosition: CGPoint) -> Void)
-        
+    
     var org: CGPoint {
         return CGPoint(x: self.bigRingRadius, y: self.bigRingRadius)
     }
@@ -64,6 +64,25 @@ public struct OMJoystick: View {
     
     var smallRingLocationY: CGFloat {
         return locationY - bigRingRadius
+    }
+    
+    var strength: CGFloat {
+        return sqrt(stickPosition.x * stickPosition.x + stickPosition.y * stickPosition.y)
+    }
+    
+    var angle: CGFloat {
+        // atan2を使用して角度を計算
+        let point = CGPoint(x: stickPosition.x, y: stickPosition.y)
+        
+        let angleInRadians = atan2(point.x, point.y)
+        var angleInDegrees = angleInRadians * 180 / .pi
+
+        // 角度を0〜360度に変換
+        if (angleInDegrees < 0) {
+            angleInDegrees += 360
+        }
+
+        return angleInDegrees
     }
     
     var dragGesture: some Gesture {
@@ -182,6 +201,11 @@ public struct OMJoystick: View {
             if isDebug {                
                 HStack(spacing: 15) {
                     Text(joyStickState.rawValue).font(.body)
+                    // angleを表示する
+                    Text(angle.text()).font(.body)
+                    // strengthを表示する
+                    Text(strength.text()).font(.body)
+
                 }
             }
         }.onAppear(){
@@ -211,7 +235,7 @@ struct OMJoystick_Previews2: PreviewProvider {
             VStack(alignment: .center, spacing: 5) {
                 OMJoystick(isDebug: true,  colorSetting: ColorSetting(iconColor: .orange), smallRingRadius: 30, bigRingRadius: 120, isOctantLinesVisible: true
                 ) { (joyStickState, stickPosition)  in
-                    
+
                 }.frame(width: geometry.size.width-40, height: geometry.size.width-40)
             }
         }
