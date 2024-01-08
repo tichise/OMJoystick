@@ -191,7 +191,7 @@ public struct OMJoystick: View {
                     }
                     HStack {
                         Text("Strength:").font(.body)
-                        Text(JoyStickStateCalculator.getStrength(stickPosition: stickPosition).text()).font(.body)
+                        Text(String(JoyStickStateCalculator.getStrength(stickPosition: stickPosition))).font(.body)
                     }
                     HStack {
                         Text("Angle:").font(.body)
