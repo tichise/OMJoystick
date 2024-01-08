@@ -23,17 +23,17 @@ class JoyStickStateCalculator {
 
         if isOctantLinesVisible {
             // 8等分の場合
-                if abs(xValue) > abs(yValue) {
-                    state = xValue < 0 ? .left : .right
-                    if abs(yValue) > bigRingRadius / 2 {
-                        state = xValue < 0 ? (yValue < 0 ? .leftUp : .leftDown) : (yValue < 0 ? .rightUp : .rightDown)
-                    }
-                } else {
-                    state = yValue < 0 ? .up : .down
-                    if abs(xValue) > bigRingRadius / 2 {
-                        state = yValue < 0 ? (xValue < 0 ? .leftUp : .rightUp) : (xValue < 0 ? .leftDown : .rightDown)
-                    }
+            if abs(xValue) > abs(yValue) {
+                state = xValue < 0 ? .left : .right
+                if abs(yValue) > bigRingRadius / 2 {
+                    state = xValue < 0 ? (yValue < 0 ? .leftUp : .leftDown) : (yValue < 0 ? .rightUp : .rightDown)
                 }
+            } else {
+                state = yValue < 0 ? .up : .down
+                if abs(xValue) > bigRingRadius / 2 {
+                    state = yValue < 0 ? (xValue < 0 ? .leftUp : .rightUp) : (xValue < 0 ? .leftDown : .rightDown)
+                }
+            }
         } else {
             // 4等分の場合
             if (abs(xValue) > abs(yValue)) {
