@@ -17,7 +17,6 @@ public struct OMJoystick: View {
     var bigRingNormalBackgroundColor: Color
     var bigRingDarkBackgroundColor: Color
     var bigRingStrokeColor: Color
-    
     var leftIcon: Image?
     var rightIcon: Image?
     var upIcon: Image?
