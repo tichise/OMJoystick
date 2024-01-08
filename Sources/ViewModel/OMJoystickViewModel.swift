@@ -51,7 +51,8 @@ class OMJoystickViewModel: ObservableObject {
     var org: CGPoint {
         return CGPoint(x: self.bigRingRadius, y: self.bigRingRadius)
     }
-    
+
+    // OMJoyStickでonAppearした時に実行する処理
     func onAppear() {
         self.locationX = bigRingRadius
         self.locationY = bigRingRadius
@@ -97,7 +98,8 @@ class OMJoystickViewModel: ObservableObject {
             )
         }
     }
-    
+
+    // DragChangeでonEndedした時に実行する処理
     func onEnded() {
         self.locationX = self.bigRingRadius
         self.locationY = self.bigRingRadius
