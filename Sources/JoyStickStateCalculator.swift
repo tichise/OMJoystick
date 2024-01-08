@@ -57,6 +57,27 @@ class JoyStickStateCalculator {
         
         return state
     }
+    
+    // strengthをメソッドにした
+    public static func getStrength(stickPosition: CGPoint) -> CGFloat {
+        return sqrt(stickPosition.x * stickPosition.x + stickPosition.y * stickPosition.y)
+    }
+    
+    // angleをメソッドにした
+    public static func getAngle(stickPosition: CGPoint) -> CGFloat {
+        // atan2を使用して角度を計算
+        let point = CGPoint(x: stickPosition.x, y: stickPosition.y)
+        
+        let angleInRadians = atan2(point.x, point.y)
+        var angleInDegrees = angleInRadians * 180 / .pi
+
+        // 角度を0〜360度に変換
+        if (angleInDegrees < 0) {
+            angleInDegrees += 360
+        }
+
+        return angleInDegrees
+    }
 }
 
 /// JoyStickState

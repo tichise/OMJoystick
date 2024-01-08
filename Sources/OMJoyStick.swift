@@ -71,25 +71,6 @@ public struct OMJoystick: View {
         return locationY - bigRingRadius
     }
     
-    var strength: CGFloat {
-        return sqrt(stickPosition.x * stickPosition.x + stickPosition.y * stickPosition.y)
-    }
-    
-    var angle: CGFloat {
-        // atan2を使用して角度を計算
-        let point = CGPoint(x: stickPosition.x, y: stickPosition.y)
-        
-        let angleInRadians = atan2(point.x, point.y)
-        var angleInDegrees = angleInRadians * 180 / .pi
-
-        // 角度を0〜360度に変換
-        if (angleInDegrees < 0) {
-            angleInDegrees += 360
-        }
-
-        return angleInDegrees
-    }
-    
     var dragGesture: some Gesture {
         // minimumDistanceが1以上だとタッチイベントを一切拾わない
         DragGesture(minimumDistance: 0)
@@ -114,15 +95,17 @@ public struct OMJoystick: View {
                     self.locationY = pointOnCircle.y
                 }
                 
+                let strength = JoyStickStateCalculator.getStrength(stickPosition: stickPosition)
+                
                 if viewModel.isOctantLinesVisible {
                     // 八等分の場合
                     self.joyStickState = JoyStickStateCalculator.getJoyStickStateOctant(stickPosition: self.stickPosition,
-                        stength: self.strength
+                        stength: strength
                     )
                 } else {
                     // 四等分の場合
                     self.joyStickState = JoyStickStateCalculator.getJoyStickStateQuadrant(stickPosition: self.stickPosition,
-                        stength: self.strength
+                        stength: strength
                     )
                 }
                 
@@ -208,11 +191,11 @@ public struct OMJoystick: View {
                     }
                     HStack {
                         Text("Strength:").font(.body)
-                        Text(strength.text()).font(.body)
+                        Text(JoyStickStateCalculator.getStrength(stickPosition: stickPosition).text()).font(.body)
                     }
                     HStack {
                         Text("Angle:").font(.body)
-                        Text(angle.text()).font(.body)
+                        Text(JoyStickStateCalculator.getAngle(stickPosition: stickPosition).text()).font(.body)
                     }
                 }
             }
