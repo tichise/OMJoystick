@@ -16,6 +16,25 @@ class JoyStickStateCalculator {
     /// - Returns: JoyStickState
     static func getJoyStickStateOctant(angle: CGFloat, stength: Int) -> JoyStickState {
         var state: JoyStickState = .center
+        
+        // 8等分の場合
+        if (angle >= 337.5 || angle < 22.5) {
+            state = .up
+        } else if (angle >= 22.5 && angle < 67.5) {
+            state = .rightUp
+        } else if (angle >= 67.5 && angle < 112.5) {
+            state = .right
+        } else if (angle >= 112.5 && angle < 157.5) {
+            state = .rightDown
+        } else if (angle >= 157.5 && angle < 202.5) {
+            state = .down
+        } else if (angle >= 202.5 && angle < 247.5) {
+            state = .leftDown
+        } else if (angle >= 247.5 && angle < 292.5) {
+            state = .left
+        } else if (angle >= 292.5 && angle < 337.5) {
+            state = .leftUp
+        }
                 
         return state
     }
