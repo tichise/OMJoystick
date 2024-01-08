@@ -16,8 +16,10 @@ final class JoyStickStateCalculatorUnitTest: XCTestCase {
     override func tearDownWithError() throws {
     }
 
-    func testGetJoyStickState() throws {
-        let bingRingRadius = CGFloat(100)
+    func testGetJoyStickStateOctant() {
+    }
+    
+    func testGetJoyStickStateQuadrant() {
     }
 
     func testDistanceFromOrigin() {
