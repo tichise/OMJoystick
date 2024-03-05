@@ -19,6 +19,9 @@ struct BigRing: View {
     
     var bigRingDiameter: CGFloat
     
+    // 円周率を直接記述する
+    private let piValue: Double = 3.14159265358979
+    
     var body: some View {
         ZStack {
             Circle().stroke(bigRingStrokeColor, lineWidth: 10)
@@ -31,12 +34,12 @@ struct BigRing: View {
                 let radius = min(bigRingDiameter, bigRingDiameter) / 2
                 let center = CGPoint(x: bigRingDiameter / 2, y: bigRingDiameter / 2)
                 
-                let additionalAngle = Double.pi / 8 // 線の開始位置を調整
+                let additionalAngle = piValue / 8 // 線の開始位置を調整
              
                 ForEach(0..<8) { i in
                     Path { path in
                         path.move(to: center)
-                        let angle = CGFloat(i) * .pi / 4 + additionalAngle
+                        let angle = CGFloat(i) * piValue / 4 + additionalAngle
                         let endX = center.x + radius * cos(angle)
                         let endY = center.y + radius * sin(angle)
                         path.addLine(to: CGPoint(x: endX, y: endY))
