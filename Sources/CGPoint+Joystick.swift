@@ -20,12 +20,15 @@ extension CGPoint {
     /// Get radian from point on circle
     func getRadian(pointOnCircle: CGPoint) -> CGFloat {
         
+        // 円周率を直接記述する
+        let piValue: Double = 3.14159265358979
+        
         let originX = pointOnCircle.x - self.x
         let originY = pointOnCircle.y - self.y
         var radian = atan2(originY, originX)
         
         while radian < 0 {
-            radian += CGFloat(2 * Double.pi)
+            radian += CGFloat(2 * piValue)
         }
         
         return radian
